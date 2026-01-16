@@ -2285,7 +2285,6 @@
             localStorage.setItem('paychanguConfig', JSON.stringify(paychanguConfig));
             
             const modeText = isLiveMode ? 'LIVE MODE' : 'TEST MODE';
-            const modeColor = isLiveMode ? '#10b981' : '#f59e0b';
             showPayChanguStatus(`✅ Switched to ${modeText} - ${isLiveMode ? 'REAL MONEY TRANSACTIONS' : 'TEST TRANSACTIONS ONLY'}`, 'success');
         }
 
@@ -2428,15 +2427,16 @@
         }
 
         // ==================== REAL PAYCHANGU PAYMENT INTEGRATION ====================
-        // CUSTOMER-FACING: This function initiates REAL PayChangu payments
-        async function initiatePayChanguPayment(beatId, method) {
-            // Check if PayChangu is configured
+        // ADMIN ONLY: This function makes the actual PayChangu API call and redirects to checkout URL
+        async function initiateRealPayChanguPayment(beatId, method) {
             if (!paychanguConfig.publicKey || !paychanguConfig.secretKey) {
+                console.error('PayChangu not configured');
                 return false;
             }
             
             const beat = beats.find(b => b.id === beatId);
             if (!beat) {
+                console.error('Beat not found');
                 return false;
             }
             
@@ -2452,80 +2452,115 @@
                 default: channel = 'ALL';
             }
             
-            // Create payment payload for REAL PayChangu API
+            // Create payment payload for PayChangu API
             const paymentData = {
-                amount: 6000, // MWK 6,000
+                amount: 6000,
                 currency: "MWK",
-                customerEmail: "", // Customer would enter this in PayChangu checkout
-                customerPhone: "", // Customer would enter this in PayChangu checkout
                 description: `JONALEM BEATZ: ${beat.title} (ID: ${beat.id})`,
                 merchantReference: transactionRef,
                 channel: channel,
                 callbackUrl: `${window.location.origin}/paychangu-callback`, // Webhook URL
-                returnUrl: `${window.location.origin}/payment-success`, // Return URL after payment
+                returnUrl: `${window.location.origin}/payment-success?beatId=${beat.id}&ref=${transactionRef}`,
                 metadata: {
                     beatId: beat.id,
                     beatTitle: beat.title,
-                    beatGenre: beat.genre,
-                    customerBrowser: navigator.userAgent,
-                    timestamp: new Date().toISOString()
+                    beatGenre: beat.genre
                 }
             };
             
             try {
-                // ==================== REAL PAYCHANGU API CALL ====================
-                // This is where the REAL PayChangu integration happens
-                // In production, you would make an actual API call to PayChangu
-                
                 const apiUrl = paychanguConfig.isTestMode 
                     ? 'https://api.paychangu.com/v1/test/payments'  // Test endpoint
                     : 'https://api.paychangu.com/v1/payments';       // Live endpoint
                 
-                // Store pending payment locally
-                const pendingPayment = {
-                    transactionRef,
-                    beatId,
-                    beatTitle: beat.title,
-                    amount: 6000,
-                    method: method.toUpperCase(),
-                    status: 'initiated',
-                    initiatedAt: new Date().toISOString(),
-                    paychanguMode: paychanguConfig.isTestMode ? 'TEST' : 'LIVE'
-                };
+                // Make API call to PayChangu
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${paychanguConfig.secretKey}`
+                    },
+                    body: JSON.stringify(paymentData)
+                });
                 
-                let pendingPayments = JSON.parse(localStorage.getItem('pendingPayments')) || [];
-                pendingPayments.push(pendingPayment);
-                localStorage.setItem('pendingPayments', JSON.stringify(pendingPayments));
+                if (!response.ok) {
+                    throw new Error(`PayChangu API error: ${response.status}`);
+                }
                 
-                // ==================== REAL PAYCHANGU CHECKOUT ====================
-                // In a real implementation, you would:
-                // 1. Make POST request to PayChangu API
-                // 2. Get checkout URL from response
-                // 3. Redirect customer to PayChangu checkout page
-                // 4. Customer enters their PIN on PayChangu's secure page
-                // 5. PayChangu redirects back to your callbackUrl with payment status
+                const result = await response.json();
                 
-                // Generate PayChangu checkout URL
-                const checkoutUrl = `${apiUrl}/checkout/${transactionRef}`;
-                
-                // Immediate redirect to PayChangu checkout
-                window.open(checkoutUrl, '_blank');
-                
-                return true;
+                // PayChangu returns a checkoutUrl in the response
+                if (result.success && result.data && result.data.checkoutUrl) {
+                    // Store pending payment
+                    const pendingPayment = {
+                        transactionRef,
+                        beatId,
+                        beatTitle: beat.title,
+                        amount: 6000,
+                        method: method.toUpperCase(),
+                        status: 'pending',
+                        initiatedAt: new Date().toISOString(),
+                        paychanguMode: paychanguConfig.isTestMode ? 'TEST' : 'LIVE'
+                    };
+                    
+                    let pendingPayments = JSON.parse(localStorage.getItem('pendingPayments')) || [];
+                    pendingPayments.push(pendingPayment);
+                    localStorage.setItem('pendingPayments', JSON.stringify(pendingPayments));
+                    
+                    // Redirect user to PayChangu checkout
+                    window.open(result.data.checkoutUrl, '_blank');
+                    
+                    return true;
+                } else {
+                    console.error('PayChangu API did not return checkout URL', result);
+                    return false;
+                }
                 
             } catch (error) {
+                console.error('PayChangu payment initiation failed:', error);
                 return false;
             }
         }
 
-        // ==================== PAYMENT VERIFICATION FUNCTION ====================
-        // This function would be called by your webhook handler when PayChangu confirms payment
-        // For TEST MODE: Admin can manually verify payments by checking PayChangu dashboard
-        function verifyPayment(transactionRef, beatId) {
-            const beat = beats.find(b => b.id === beatId);
-            if (!beat) {
+        // ==================== PAYMENT VERIFICATION ====================
+        // This function would be called by PayChangu webhook/callback
+        // For GitHub Pages (static), you'll need a different approach
+        // Consider using a serverless function (Netlify, Vercel, Cloudflare) for webhooks
+        async function verifyPayChanguPayment(transactionRef, beatId) {
+            try {
+                const apiUrl = paychanguConfig.isTestMode 
+                    ? `https://api.paychangu.com/v1/test/payments/${transactionRef}`
+                    : `https://api.paychangu.com/v1/payments/${transactionRef}`;
+                
+                const response = await fetch(apiUrl, {
+                    headers: {
+                        'Authorization': `Bearer ${paychanguConfig.secretKey}`
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to verify payment: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.data && result.data.status === 'SUCCESSFUL') {
+                    // Payment successful - unlock beat
+                    unlockBeatForCustomer(beatId, transactionRef, result.data);
+                    return true;
+                }
+                
+                return false;
+                
+            } catch (error) {
+                console.error('Payment verification failed:', error);
                 return false;
             }
+        }
+
+        function unlockBeatForCustomer(beatId, transactionRef, paymentData) {
+            const beat = beats.find(b => b.id === beatId);
+            if (!beat) return false;
             
             // Generate reference code
             const refCode = generateReferenceCode();
@@ -2543,7 +2578,8 @@
                 status: 'completed',
                 completedAt: new Date().toISOString(),
                 viaPayChangu: true,
-                paychanguMode: paychanguConfig.isTestMode ? 'TEST' : 'LIVE'
+                paychanguMode: paychanguConfig.isTestMode ? 'TEST' : 'LIVE',
+                paymentDetails: paymentData
             };
             
             // Save to purchase history
@@ -2571,22 +2607,60 @@
             return true;
         }
 
-        // ==================== TEST MODE: MANUAL PAYMENT VERIFICATION ====================
-        // Since this is TEST MODE without a backend, admin can manually verify payments
-        // In production, this would be handled by PayChangu webhooks automatically
-        function manuallyVerifyPayment() {
+        // ==================== PUBLIC-FACING PAYMENT FUNCTIONS ====================
+        // These are called when customers click Buy button
+        function startPurchaseProcess(beatId) {
+            currentBeatIdForPurchase = beatId;
+            openPaymentModal();
+        }
+        
+        function openPaymentModal() {
+            paymentModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closePaymentModal() {
+            paymentModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            currentBeatIdForPurchase = null;
+        }
+        
+        function selectPaymentMethod(method) {
+            if (!currentBeatIdForPurchase) return;
+            
+            const beat = beats.find(b => b.id === currentBeatIdForPurchase);
+            if (!beat) return;
+            
+            closePaymentModal();
+            
+            // Initiate REAL PayChangu payment
+            initiateRealPayChanguPayment(beat.id, method);
+        }
+
+        // ==================== SIMULATED PAYMENT VERIFICATION FOR TESTING ====================
+        // REMOVE THIS IN PRODUCTION - Only for testing without webhooks
+        function simulatePayChanguCallback() {
             if (!isAdminLoggedIn) {
                 return;
             }
             
-            const transactionRef = prompt("Enter PayChangu Transaction Reference to verify:", "");
+            const transactionRef = prompt("Enter PayChangu Transaction Reference to simulate callback:", "");
             if (!transactionRef) return;
             
             const beatId = prompt("Enter Beat ID that was purchased:", "");
             if (!beatId) return;
             
-            if (verifyPayment(transactionRef, parseInt(beatId))) {
+            const paymentData = {
+                status: 'SUCCESSFUL',
+                amount: 6000,
+                currency: 'MWK',
+                paidAt: new Date().toISOString()
+            };
+            
+            if (unlockBeatForCustomer(parseInt(beatId), transactionRef, paymentData)) {
+                console.log('✅ Simulated payment successful - beat unlocked');
             } else {
+                console.error('❌ Simulated payment failed');
             }
         }
 
@@ -2634,6 +2708,23 @@
             }
             
             purchaseHistory = JSON.parse(localStorage.getItem('purchaseHistory')) || [];
+            
+            // Check URL parameters for payment callback (for GitHub Pages static hosting)
+            const urlParams = new URLSearchParams(window.location.search);
+            const paymentStatus = urlParams.get('payment');
+            const beatId = urlParams.get('beatId');
+            const transactionRef = urlParams.get('ref');
+            
+            if (paymentStatus === 'success' && beatId && transactionRef) {
+                // This is a simplified callback simulation for static hosting
+                // In production, use PayChangu webhooks with a serverless function
+                setTimeout(() => {
+                    console.log('Processing payment callback...');
+                    if (verifyPayChanguPayment(transactionRef, parseInt(beatId))) {
+                        console.log('Payment verified successfully');
+                    }
+                }, 1000);
+            }
             
             renderBeats(beats);
             updateBeatCount(beats.length);
@@ -2786,40 +2877,6 @@
             updateAdminStats();
         }
         
-        // ==================== PAYMENT PROCESS ====================
-        function startPurchaseProcess(beatId) {
-            currentBeatIdForPurchase = beatId;
-            openPaymentModal();
-        }
-        
-        function openPaymentModal() {
-            paymentModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closePaymentModal() {
-            paymentModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            currentBeatIdForPurchase = null;
-        }
-        
-        function selectPaymentMethod(method) {
-            if (!currentBeatIdForPurchase) return;
-            
-            const beat = beats.find(b => b.id === currentBeatIdForPurchase);
-            if (!beat) return;
-            
-            closePaymentModal();
-            
-            // ==================== REAL PAYCHANGU PAYMENT ====================
-            // This initiates a REAL PayChangu payment
-            // Customer will be redirected to PayChangu checkout
-            // Customer enters their PIN on PayChangu's secure page
-            // Beat does NOT unlock here - only after PayChangu confirms payment
-            
-            initiatePayChanguPayment(beat.id, method);
-        }
-        
         function generateReferenceCode() {
             const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
             let code = 'JNL';
@@ -2887,10 +2944,8 @@ Options:
                         if (isAdminLoggedIn) {
                             updateAdminStats();
                         }
-                    } else {
                     }
                 }
-            } else {
             }
         }
         
@@ -2960,7 +3015,6 @@ Options:
             playPauseBtn.addEventListener('click', () => {
                 if (!isPurchased && audioElement.currentTime >= PREVIEW_LIMIT) {
                     audioElement.currentTime = 0;
-                    showPurchasePrompt(beatId);
                     return;
                 }
                 
@@ -2974,7 +3028,6 @@ Options:
             function playAudio() {
                 if (!isPurchased && audioElement.currentTime >= PREVIEW_LIMIT) {
                     audioElement.currentTime = 0;
-                    showPurchasePrompt(beatId);
                     return;
                 }
                 
@@ -3009,7 +3062,6 @@ Options:
                     audioElement.currentTime = 0;
                     progressBar.style.width = '0%';
                     currentTimeEl.textContent = '0:00';
-                    showPurchasePrompt(beatId);
                 }
             }
             
@@ -3023,7 +3075,6 @@ Options:
                 
                 if (!isPurchased && newTime > PREVIEW_LIMIT) {
                     newTime = PREVIEW_LIMIT;
-                    showPurchasePrompt(beatId);
                 }
                 
                 audioElement.currentTime = newTime;
@@ -3048,26 +3099,18 @@ Options:
                     pauseAudio();
                     progressBar.style.width = '0%';
                     currentTimeEl.textContent = '0:00';
-                } else {
-                    showPurchasePrompt(beatId);
                 }
             });
             
             audioElement.addEventListener('seeking', () => {
                 if (!isPurchased && audioElement.currentTime > PREVIEW_LIMIT) {
                     audioElement.currentTime = PREVIEW_LIMIT;
-                    showPurchasePrompt(beatId);
                 }
             });
             
             audioElement.addEventListener('loadedmetadata', () => {
                 durationEl.textContent = formatTime(isPurchased ? audioElement.duration : PREVIEW_LIMIT);
             });
-        }
-        
-        function showPurchasePrompt(beatId) {
-            const beat = beats.find(b => b.id === beatId);
-            if (!beat) return;
         }
         
         function formatTime(seconds) {
