@@ -1,40 +1,59 @@
-const beats = {
-  Afrobeats: [
-    { name: "12 January Afro", file: "Beatz/Afrobeats/12-january-afro.mp3" },
-    { name: "Fasha 2026", file: "Beatz/Afrobeats/fasha-2026.mp3" },
-    { name: "Foster Afrodancehall", file: "Beatz/Afrobeats/foster-afrodancehall.mp3" },
-    { name: "Full Beat", file: "Beatz/Afrobeats/full-beat.mp3" },
-    { name: "Mbambande Jonalem Beatz", file: "Beatz/Afrobeats/mbambande-jonalem-beatz.mp3" }
-  ]
-};
+let beats = [
+  { title: "Midnight Amapiano", genre: "Amapiano", file: "", locked: true },
+  { title: "Street Drill", genre: "Drill", file: "", locked: true }
+];
 
-function openGenre(genre) {
-  const container = document.getElementById("beatsContainer");
-  const title = document.getElementById("genreTitle");
+const beatsEl = document.getElementById("beats");
+const searchInput = document.getElementById("search");
+const filters = document.querySelectorAll(".filter");
 
-  title.innerText = genre + " Beats (20s Demo Preview)";
-  container.innerHTML = "";
+function renderBeats(list) {
+  beatsEl.innerHTML = "";
+  list.forEach((beat, i) => {
+    const card = document.createElement("div");
+    card.className = "beat-card";
+    card.dataset.genre = beat.genre;
 
-  beats[genre].forEach((beat, index) => {
-    container.innerHTML += `
-      <div class="beat-card">
-        <h3>${beat.name}</h3>
-
-        <audio id="audio${index}" src="${beat.file}"></audio>
-
-        <button onclick="playDemo('audio${index}')">▶ Play 20s Demo</button>
-        <button class="locked">🔒 Locked</button>
-      </div>
+    card.innerHTML = `
+      <h3>${beat.title}</h3>
+      <div class="genre">${beat.genre}</div>
+      <audio controls data-index="${i}"></audio>
+      <button class="glow-btn buy-btn">Buy / Unlock</button>
     `;
+    beatsEl.appendChild(card);
   });
 }
 
-function playDemo(id) {
-  const audio = document.getElementById(id);
-  audio.currentTime = 0;
-  audio.play();
+renderBeats(beats);
 
-  setTimeout(() => {
-    audio.pause();
-  }, 20000);
-}
+/* SEARCH */
+searchInput.addEventListener("input", () => {
+  const q = searchInput.value.toLowerCase();
+  renderBeats(beats.filter(b => b.title.toLowerCase().includes(q)));
+});
+
+/* FILTER */
+filters.forEach(btn => {
+  btn.onclick = () => {
+    filters.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const g = btn.dataset.genre;
+    renderBeats(g === "All" ? beats : beats.filter(b => b.genre === g));
+  };
+});
+
+/* UPLOAD */
+document.getElementById("uploadBtn").onclick = () => {
+  const title = titleInput.value;
+  const genre = genreInput.value;
+  const file = fileInput.files[0];
+
+  if (!title || !file) return alert("Fill all fields");
+
+  beats.push({ title, genre, file: URL.createObjectURL(file), locked: true });
+  renderBeats(beats);
+
+  titleInput.value = "";
+  fileInput.value = "";
+};

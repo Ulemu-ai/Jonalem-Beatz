@@ -1,76 +1,1634 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Jonalem Beatz</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JONALEM BEATZ | Professional Beat Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --primary-dark: #5b21b6;
+            --secondary: #f59e0b;
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --light-text: #f8fafc;
+            --gray-text: #94a3b8;
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --glow-cyan: rgba(0, 251, 255, 0.7);
+            --glow-purple: rgba(168, 85, 247, 0.8);
+            --glow-blue: rgba(59, 130, 246, 0.8);
+            --glow-green: rgba(52, 211, 153, 0.8);
+            --glow-yellow: rgba(250, 204, 21, 0.8);
+            --glow-pink: rgba(236, 72, 153, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1a2e 100%);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo-icon {
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        /* Price Banner */
+        .price-banner {
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            padding: 0.8rem 2rem;
+            text-align: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+            margin-bottom: 1rem;
+        }
+
+        .price-banner .highlight {
+            background-color: var(--secondary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin: 0 8px;
+            color: #000;
+            font-size: 1.3rem;
+        }
+
+        /* Enhanced Payment Banner with Reference Info */
+        .payment-banner {
+            background: linear-gradient(90deg, #1e293b, #334155);
+            padding: 1.2rem 2rem;
+            text-align: center;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            border-top: 2px solid var(--secondary);
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .payment-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .payment-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .payment-icon {
+            background-color: rgba(245, 158, 11, 0.2);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+        }
+
+        .ref-code-info {
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: rgba(124, 58, 237, 0.1);
+            border-radius: 8px;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        /* Genre Filter */
+        .genre-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 1.5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .glow-btn {
+            position: relative;
+            padding: 14px 26px;
+            background-color: var(--dark-card);
+            border: none;
+            border-radius: var(--border-radius);
+            color: var(--gray-text);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            overflow: hidden;
+            z-index: 1;
+            min-width: 110px;
+            text-align: center;
+        }
+
+        .glow-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--glow-cyan), 
+                var(--glow-purple), 
+                var(--glow-blue), 
+                var(--glow-green));
+            background-size: 400% 400%;
+            border-radius: calc(var(--border-radius) + 2px);
+            z-index: -1;
+            opacity: 0;
+            animation: glowing-border 3s ease-in-out infinite, pulse 2s ease-in-out infinite;
+            transition: opacity 0.3s ease;
+        }
+
+        @keyframes glowing-border {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; filter: blur(0px); }
+            50% { opacity: 0.8; filter: blur(1px); }
+        }
+
+        .glow-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            color: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .glow-btn:hover::before {
+            opacity: 1;
+            animation-duration: 2s;
+        }
+
+        .glow-btn.active {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .glow-btn.active::before {
+            opacity: 1;
+            animation-duration: 2s;
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.7);
+        }
+
+        .glow-btn[data-genre="all"]::before {
+            background: linear-gradient(45deg, var(--glow-cyan), var(--glow-purple), var(--glow-blue));
+        }
+        .glow-btn[data-genre="amapiano"]::before {
+            background: linear-gradient(45deg, var(--glow-yellow), var(--glow-green), var(--glow-cyan));
+        }
+        .glow-btn[data-genre="afrobeats"]::before {
+            background: linear-gradient(45deg, var(--glow-green), var(--glow-yellow), #ff6b6b);
+        }
+        .glow-btn[data-genre="worship"]::before {
+            background: linear-gradient(45deg, var(--glow-blue), var(--glow-cyan), #a78bfa);
+        }
+        .glow-btn[data-genre="local"]::before {
+            background: linear-gradient(45deg, #f97316, var(--glow-yellow), #f59e0b);
+        }
+        .glow-btn[data-genre="drill"]::before {
+            background: linear-gradient(45deg, #ef4444, #f97316, #dc2626);
+        }
+        .glow-btn[data-genre="trap"]::before {
+            background: linear-gradient(45deg, var(--glow-purple), var(--glow-pink), #a855f7);
+        }
+        .glow-btn[data-genre="hiphop"]::before {
+            background: linear-gradient(45deg, #3b82f6, var(--glow-blue), #1d4ed8);
+        }
+        .glow-btn[data-genre="others"]::before {
+            background: linear-gradient(45deg, var(--glow-pink), var(--glow-purple), #ec4899);
+        }
+
+        /* Beats Container */
+        .beats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 3rem;
+        }
+
+        .beats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .beat-card {
+            background-color: var(--dark-card);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            border: 1px solid transparent;
+            position: relative;
+        }
+
+        .beat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
+
+        .price-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(90deg, var(--secondary), #d97706);
+            color: #000;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            z-index: 2;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Beat ID Display */
+        .beat-id {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--secondary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            z-index: 2;
+            border: 1px solid var(--secondary);
+        }
+
+        .beat-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #334155;
+            padding-top: 2.5rem;
+        }
+
+        .beat-title {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: var(--light-text);
+        }
+
+        .beat-genre {
+            display: inline-block;
+            padding: 6px 14px;
+            background-color: rgba(124, 58, 237, 0.1);
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .beat-player {
+            padding: 1.5rem;
+        }
+
+        .audio-container {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .preview-progress {
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            border-radius: 2px;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-progress::after {
+            content: '30s PREVIEW LIMIT';
+            position: absolute;
+            right: 0;
+            top: -20px;
+            font-size: 0.7rem;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .preview-label {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Custom Audio Player */
+        .custom-audio-player {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .play-pause-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .play-pause-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        .progress-container {
+            flex: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .volume-slider {
+            width: 80px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .volume-level {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 2px;
+            width: 100%;
+        }
+
+        .volume-icon {
+            color: var(--gray-text);
+            font-size: 1.1rem;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--gray-text);
+            margin-top: 5px;
+        }
+
+        .locked-overlay {
+            background-color: rgba(15, 23, 42, 0.9);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 1rem;
+            border: 1px dashed var(--primary);
+        }
+
+        .lock-icon {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .locked-text {
+            color: var(--gray-text);
+            margin-bottom: 15px;
+        }
+
+        /* Buy Button */
+        .buy-btn {
+            position: relative;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 16px 28px;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .buy-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--glow-purple), 
+                var(--glow-cyan), 
+                var(--glow-blue), 
+                var(--glow-purple));
+            background-size: 400% 400%;
+            border-radius: calc(var(--border-radius) + 2px);
+            z-index: -1;
+            opacity: 0;
+            animation: glowing-border 3s ease-in-out infinite, pulse 2s ease-in-out infinite;
+            transition: opacity 0.3s ease;
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4);
+        }
+
+        .buy-btn:hover::before {
+            opacity: 1;
+            animation-duration: 2s;
+        }
+
+        .buy-btn.unlocked {
+            background: linear-gradient(90deg, #10b981, #059669);
+        }
+
+        .buy-btn.unlocked::before {
+            background: linear-gradient(45deg, 
+                var(--glow-green), 
+                var(--glow-cyan), 
+                #34d399, 
+                var(--glow-green));
+        }
+
+        /* Security Warning */
+        .security-warning {
+            text-align: center;
+            color: var(--secondary);
+            font-size: 0.8rem;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* Upload Form */
+        .upload-container {
+            background-color: var(--dark-card);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            margin: 3rem auto;
+            max-width: 800px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid #334155;
+        }
+
+        .upload-container h2 {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            color: var(--gray-text);
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select {
+            padding: 14px;
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid #334155;
+            color: var(--light-text);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Upload Button */
+        .upload-btn {
+            position: relative;
+            background: linear-gradient(90deg, var(--secondary), #d97706);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .upload-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--glow-yellow), 
+                #f59e0b, 
+                var(--glow-yellow), 
+                #fbbf24);
+            background-size: 400% 400%;
+            border-radius: calc(var(--border-radius) + 2px);
+            z-index: -1;
+            opacity: 0;
+            animation: glowing-border 3s ease-in-out infinite, pulse 2s ease-in-out infinite;
+            transition: opacity 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
+        }
+
+        .upload-btn:hover::before {
+            opacity: 1;
+            animation-duration: 2s;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0a0f1c;
+            padding: 2.5rem 2rem;
+            margin-top: 3rem;
+            text-align: center;
+            border-top: 1px solid #1e293b;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .copyright {
+            color: var(--gray-text);
+            margin-top: 1.5rem;
+        }
+
+        /* Admin Tools */
+        .admin-tools {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .admin-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary);
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+
+        .admin-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .admin-btn.export { background: var(--primary); }
+        .admin-btn.import { background: var(--secondary); }
+        .admin-btn.purchases { background: #10b981; }
+        .admin-btn.ref-check { background: #8b5cf6; }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .beat-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Beat counter */
+        .beat-count {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--gray-text);
+            font-size: 1.1rem;
+        }
+        
+        .beat-count span {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .search-container {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .beats-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .beats-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .genre-filter {
+                padding: 1rem;
+                gap: 10px;
+            }
+            
+            .glow-btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+                min-width: 90px;
+            }
+            
+            .payment-info {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+            
+            .price-banner {
+                font-size: 1rem;
+                padding: 0.6rem 1rem;
+            }
+            
+            .price-banner .highlight {
+                font-size: 1.1rem;
+                padding: 3px 10px;
+            }
+            
+            .player-controls {
+                gap: 10px;
+            }
+            
+            .volume-slider {
+                width: 60px;
+            }
+            
+            .admin-tools {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .admin-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .beats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header, .beats-container, .upload-container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .genre-filter {
+                gap: 8px;
+            }
+            
+            .glow-btn {
+                padding: 10px 16px;
+                min-width: 80px;
+                font-size: 0.85rem;
+            }
+            
+            .player-controls {
+                flex-wrap: wrap;
+            }
+            
+            .volume-control {
+                display: none;
+            }
+            
+            .admin-tools {
+                bottom: 5px;
+                right: 5px;
+                gap: 5px;
+            }
+            
+            .admin-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header Section -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-music logo-icon"></i>
+                <h1>JONALEM BEATZ</h1>
+            </div>
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-bar" id="searchBar" placeholder="Search beats by title...">
+            </div>
+        </div>
+    </header>
 
-<header>
-  <h1>Jonalem Beatz</h1>
-  <p>Professional Music Producer | Beats for Every Vibe</p>
-
-  <input type="text" id="searchBox" placeholder="Search beats or genres...">
-
-  <div class="buttons">
-    <a class="btn" href="#">Listen to Beats</a>
-    <a class="btn whatsapp" href="https://wa.me/265883930885" target="_blank">
-      Chat on WhatsApp
-    </a>
-  </div>
-</header>
-
-<section>
-  <h2>Genres</h2>
-  <div class="genres">
-    <button onclick="openGenre('Amapiano')">Amapiano</button>
-    <button onclick="openGenre('Afrobeats')">Afrobeats</button>
-    <button onclick="openGenre('Drill')">Drill</button>
-    <button onclick="openGenre('Worship')">Worship</button>
-    <button onclick="openGenre('Local')">Local</button>
-    <button onclick="openGenre('Trap')">Trap</button>
-    <button onclick="openGenre('Hip Hop')">Hip Hop</button>
-    <button onclick="openGenre('Others')">Others</button>
-  </div>
-</section>
-
-<section id="beatsSection">
-  <h2 id="genreTitle">Select a Genre</h2>
-
-  <div class="beat-card">
-    <h3>Midnight Vibes</h3>
-    <p>20 seconds demo preview</p>
-
-    <audio id="demoAudio" src="beats/demo.mp3"></audio>
-
-    <button onclick="playDemo()">▶ Play Demo</button>
-    <button class="locked">🔒 Locked</button>
-  </div>
-</section>
-
-<section>
-  <h2>Payment Methods</h2>
-  <div class="payments">
-    <div class="pay-card">
-      <h3>TNM Mpamba</h3>
-      <p>0883 930 885</p>
+    <!-- Price Banner -->
+    <div class="price-banner">
+        <i class="fas fa-tag"></i> All Beats: <span class="highlight">MWK 6,000</span> Each | 
+        <i class="fas fa-headphones"></i> 30-Second Free Preview | 
+        <i class="fas fa-unlock"></i> Instant Unlock After Payment
     </div>
-    <div class="pay-card">
-      <h3>Airtel Money</h3>
-      <p>0996 125 671</p>
+
+    <!-- Enhanced Payment Information Banner -->
+    <div class="payment-banner">
+        <div class="payment-info">
+            <div class="payment-item">
+                <div class="payment-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div>
+                    <strong>TNM Mpamba:</strong> 0883930885
+                </div>
+            </div>
+            <div class="payment-item">
+                <div class="payment-icon">
+                    <i class="fas fa-sim-card"></i>
+                </div>
+                <div>
+                    <strong>Airtel Money:</strong> 0996125671
+                </div>
+            </div>
+            <div class="payment-item">
+                <div class="payment-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div>
+                    <strong>WhatsApp:</strong> 0883930885
+                </div>
+            </div>
+        </div>
+        <div class="ref-code-info">
+            <i class="fas fa-key"></i> <strong>IMPORTANT:</strong> Each purchase generates a unique Reference Code. Include it in payment!
+        </div>
     </div>
-  </div>
 
-  <p class="note">
-    After full payment, send proof via WhatsApp to unlock the beat.
-  </p>
-</section>
+    <!-- Genre Filter Section -->
+    <div class="genre-filter">
+        <button class="glow-btn active" data-genre="all">All</button>
+        <button class="glow-btn" data-genre="amapiano">Amapiano</button>
+        <button class="glow-btn" data-genre="afrobeats">Afrobeats</button>
+        <button class="glow-btn" data-genre="worship">Worship</button>
+        <button class="glow-btn" data-genre="local">Local</button>
+        <button class="glow-btn" data-genre="drill">Drill</button>
+        <button class="glow-btn" data-genre="trap">Trap</button>
+        <button class="glow-btn" data-genre="hiphop">Hip Hop</button>
+        <button class="glow-btn" data-genre="others">Others</button>
+    </div>
 
-<footer>
-  © 2026 Jonalem Beatz. All Rights Reserved.
-</footer>
+    <!-- Beats Display Section -->
+    <section class="beats-container">
+        <div class="beat-count">
+            Showing <span id="beatCount">0</span> beats at <span style="color: var(--secondary); font-weight: 700;">MWK 6,000</span> each
+        </div>
+        <div class="beats-grid" id="beatsGrid">
+            <!-- Beats will be dynamically added here -->
+        </div>
+    </section>
 
-<script src="script.js"></script>
+    <!-- Upload Beat Section -->
+    <section class="upload-container" id="uploadSection">
+        <h2><i class="fas fa-cloud-upload-alt"></i> Upload New Beat</h2>
+        <form class="upload-form" id="uploadForm">
+            <div class="form-group">
+                <label for="beatTitle">Beat Title</label>
+                <input type="text" id="beatTitle" placeholder="Enter beat title" required>
+            </div>
+            <div class="form-group">
+                <label for="beatGenre">Genre</label>
+                <select id="beatGenre" required>
+                    <option value="">Select a genre</option>
+                    <option value="amapiano">Amapiano</option>
+                    <option value="afrobeats">Afrobeats</option>
+                    <option value="worship">Worship</option>
+                    <option value="local">Local</option>
+                    <option value="drill">Drill</option>
+                    <option value="trap">Trap</option>
+                    <option value="hiphop">Hip Hop</option>
+                    <option value="others">Others</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="beatFile">Audio File (MP3, WAV) - 30-second preview will be enforced</label>
+                <input type="file" id="beatFile" accept="audio/*" required>
+                <small style="color: var(--gray-text); margin-top: 5px;">Note: Beat will be automatically assigned a unique ID and priced at MWK 6,000</small>
+            </div>
+            <button type="submit" class="upload-btn">
+                <i class="fas fa-upload"></i> Upload Beat (Auto-ID + MWK 6,000)
+            </button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                <i class="fas fa-music logo-icon"></i>
+                <h1>JONALEM BEATZ</h1>
+            </div>
+            <p>Professional quality beats for artists, producers, and content creators</p>
+            <p style="color: var(--secondary); font-weight: 700; margin-top: 10px;">
+                <i class="fas fa-money-bill-wave"></i> Standard Price: MWK 6,000 per beat
+            </p>
+            <div class="copyright">
+                &copy; 2023 JONALEM BEATZ. All rights reserved. | All beats MWK 6,000
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Tools Floating Buttons -->
+    <div class="admin-tools">
+        <button class="admin-btn export" title="Export Beats Data" onclick="exportBeatsData()">
+            <i class="fas fa-download"></i>
+        </button>
+        <button class="admin-btn import" title="Import Beats Data" onclick="document.getElementById('importFile').click()">
+            <i class="fas fa-upload"></i>
+        </button>
+        <button class="admin-btn purchases" title="View Purchase History" onclick="showPurchaseHistory()">
+            <i class="fas fa-shopping-cart"></i>
+        </button>
+        <button class="admin-btn ref-check" title="Check Reference Code" onclick="checkReferenceCode()">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+
+    <!-- Hidden Import Input -->
+    <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importBeatsData(event)">
+
+    <script>
+        // ==================== COMPLETE SMART REFERENCE CODE SYSTEM ====================
+        const BEAT_PRICE = "MWK 6,000";
+        const PREVIEW_LIMIT = 30; // 30-second preview
+        
+        // Initial beats data - Each beat gets UNIQUE ID
+        const initialBeats = [
+            { id: 1001, title: "Midnight Groove", genre: "amapiano", previewUrl: "https://assets.mixkit.co/music/preview/mixkit-tech-house-vibes-130.mp3" },
+            { id: 1002, title: "African Sunset", genre: "afrobeats", previewUrl: "https://assets.mixkit.co/music/preview/mixkit-summer-bossa-481.mp3" },
+            { id: 1003, title: "Heaven's Touch", genre: "worship", previewUrl: "https://assets.mixkit.co/music/preview/mixkit-deep-urban-623.mp3" },
+            { id: 1004, title: "Village Rhythms", genre: "local", previewUrl: "https://assets.mixkit.co/music/preview/mixkit-driving-ambition-32.mp3" },
+            { id: 1005, title: "Dark Alley", genre: "drill", previewUrl: "https://assets.mixkit.co/music/preview/mixkit-hazy-after-hours-132.mp3" },
+            { id: 1006, title: "Atlanta Flow", genre: "trap", previewUrl: "https://assets.mixkit.co/music/preview/mixkit-steps-01-707.mp3" },
+            { id: 1007, title: "Street Dreams", genre: "hiphop", previewUrl: "https://assets.mixkit.co/music/preview/mixkit-hip-hop-02-74.mp3" },
+            { id: 1008, title: "Eternal Hope", genre: "worship", previewUrl: "https://assets.mixkit.co/music/preview/mixkit-piano-ambience-479.mp3" },
+            { id: 1009, title: "Soulful Keys", genre: "amapiano", previewUrl: "https://assets.mixkit.co/music/preview/mixkit-chill-001-50.mp3" },
+            { id: 1010, title: "Desert Wind", genre: "afrobeats", previewUrl: "https://assets.mixkit.co/music/preview/mixkit-soul-rnb-1-666.mp3" },
+            { id: 1011, title: "Underground King", genre: "hiphop", previewUrl: "https://assets.mixkit.co/music/preview/mixkit-hip-hop-01-737.mp3" },
+            { id: 1012, title: "Mystic Vibes", genre: "others", previewUrl: "https://assets.mixkit.co/music/preview/mixkit-mysterious-forest-583.mp3" }
+        ];
+
+        let beats = [];
+        let nextId = 1013; // Start from 1013 after initial beats
+        let purchasedBeats = JSON.parse(localStorage.getItem('purchasedBeats')) || [];
+        let purchaseHistory = JSON.parse(localStorage.getItem('purchaseHistory')) || [];
+        
+        // DOM elements
+        const beatsGrid = document.getElementById('beatsGrid');
+        const genreButtons = document.querySelectorAll('.glow-btn');
+        const searchBar = document.getElementById('searchBar');
+        const uploadForm = document.getElementById('uploadForm');
+        const beatCount = document.getElementById('beatCount');
+        
+        // Initialize page
+        function initPage() {
+            const savedBeats = localStorage.getItem('jonalemBeats');
+            if (savedBeats && JSON.parse(savedBeats).length > 0) {
+                beats = JSON.parse(savedBeats);
+                nextId = Math.max(...beats.map(b => b.id)) + 1;
+            } else {
+                beats = [...initialBeats];
+                nextId = 1013;
+                localStorage.setItem('jonalemBeats', JSON.stringify(beats));
+            }
+            
+            // Load purchase history
+            purchaseHistory = JSON.parse(localStorage.getItem('purchaseHistory')) || [];
+            
+            renderBeats(beats);
+            updateBeatCount(beats.length);
+            
+            // Event listeners
+            genreButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    genreButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    filterBeatsByGenre(button.getAttribute('data-genre'));
+                });
+            });
+            
+            searchBar.addEventListener('input', filterBeatsBySearch);
+            uploadForm.addEventListener('submit', handleBeatUpload);
+        }
+        
+        // Render beats to grid
+        function renderBeats(beatsToRender) {
+            beatsGrid.innerHTML = '';
+            
+            if (beatsToRender.length === 0) {
+                beatsGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--gray-text);"><h3>No beats found</h3><p>Try a different search or filter</p></div>';
+                return;
+            }
+            
+            beatsToRender.forEach(beat => {
+                const isPurchased = purchasedBeats.includes(beat.id);
+                const beatCard = document.createElement('div');
+                beatCard.className = 'beat-card';
+                beatCard.setAttribute('data-genre', beat.genre);
+                beatCard.setAttribute('data-title', beat.title.toLowerCase());
+                beatCard.setAttribute('data-id', beat.id);
+                
+                beatCard.innerHTML = `
+                    <div class="beat-id">ID: ${beat.id}</div>
+                    <div class="price-tag">${BEAT_PRICE}</div>
+                    <div class="beat-header">
+                        <h3 class="beat-title">${beat.title}</h3>
+                        <span class="beat-genre">${beat.genre.toUpperCase()}</span>
+                    </div>
+                    <div class="beat-player">
+                        <div class="audio-container">
+                            <div class="preview-label">
+                                <i class="fas fa-headphones"></i> 30-second preview only
+                            </div>
+                            <div class="custom-audio-player">
+                                <div class="player-controls">
+                                    <button class="play-pause-btn" data-id="${beat.id}">
+                                        <i class="fas fa-play"></i>
+                                    </button>
+                                    <div class="progress-container" data-id="${beat.id}">
+                                        <div class="progress-bar" data-id="${beat.id}" style="width: 0%"></div>
+                                    </div>
+                                    <div class="volume-control">
+                                        <i class="fas fa-volume-up volume-icon"></i>
+                                        <div class="volume-slider" data-id="${beat.id}">
+                                            <div class="volume-level" data-id="${beat.id}" style="width: 100%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="time-display">
+                                    <span class="current-time" data-id="${beat.id}">0:00</span>
+                                    <span class="duration" data-id="${beat.id}">0:30</span>
+                                </div>
+                            </div>
+                            <div class="preview-progress"></div>
+                            <p class="security-warning">No download option available. Purchase to unlock full beat.</p>
+                        </div>
+                        
+                        ${!isPurchased ? `
+                        <div class="locked-overlay">
+                            <i class="fas fa-lock lock-icon"></i>
+                            <p class="locked-text">Full beat locked. Purchase to unlock complete track.</p>
+                            <button class="buy-btn" onclick="startPurchaseProcess(${beat.id})">
+                                <i class="fas fa-shopping-cart"></i> Buy / Unlock - ${BEAT_PRICE}
+                            </button>
+                        </div>
+                        ` : `
+                        <div class="locked-overlay" style="border-color: #10b981;">
+                            <i class="fas fa-unlock lock-icon" style="color: #10b981;"></i>
+                            <p class="locked-text">Full beat unlocked! Download available.</p>
+                            <button class="buy-btn unlocked" onclick="downloadBeat(${beat.id})">
+                                <i class="fas fa-download"></i> Download Full Beat
+                            </button>
+                        </div>
+                        `}
+                    </div>
+                `;
+                
+                beatsGrid.appendChild(beatCard);
+                setupCustomAudioPlayer(beatCard, beat.id, isPurchased);
+            });
+            
+            updateBeatCount(beatsToRender.length);
+        }
+        
+        // ==================== SMART PURCHASE PROCESS WITH REFERENCE CODE ====================
+        function startPurchaseProcess(beatId) {
+            const beat = beats.find(b => b.id === beatId);
+            if (!beat) return;
+            
+            // Generate unique reference code
+            const refCode = generateReferenceCode();
+            const today = new Date().toLocaleDateString('en-GB');
+            const time = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+            
+            const message = `
+🎵 PURCHASE CONFIRMATION
+════════════════════════
+BEAT: "${beat.title}"
+BEAT ID: ${beat.id}
+PRICE: ${BEAT_PRICE}
+DATE: ${today} ${time}
+REF CODE: ${refCode}
+════════════════════════
+
+📱 PAYMENT INSTRUCTIONS:
+
+1️⃣ SEND PAYMENT:
+   Amount: ${BEAT_PRICE}
+   To: TNM Mpamba - 0883930885
+        OR
+        Airtel Money - 0996125671
+
+2️⃣ INCLUDE REFERENCE:
+   Write this in payment reference:
+   "${refCode}"
+
+3️⃣ AFTER PAYMENT:
+   • Take screenshot
+   • Send to WhatsApp: 0883930885
+   • Include: "${refCode}"
+   
+🔓 Beat unlocks immediately!
+
+✅ Click OK to proceed
+❌ Cancel to go back
+            `;
+            
+            if (confirm(message)) {
+                // Save purchase record
+                const purchaseRecord = {
+                    beatId: beatId,
+                    beatTitle: beat.title,
+                    beatGenre: beat.genre,
+                    refCode: refCode,
+                    price: BEAT_PRICE,
+                    timestamp: new Date().toISOString(),
+                    status: 'pending',
+                    customerContact: '',
+                    paymentProof: ''
+                };
+                
+                // Save to purchase history
+                purchaseHistory.push(purchaseRecord);
+                localStorage.setItem('purchaseHistory', JSON.stringify(purchaseHistory));
+                
+                // Save by reference code for easy lookup
+                localStorage.setItem(`ref_${refCode}`, JSON.stringify(purchaseRecord));
+                
+                // Show detailed instructions
+                showPaymentInstructions(refCode, beat.title);
+                
+                // Console log for admin
+                console.log(`📝 New purchase started:`);
+                console.log(`   Beat: ${beat.title} (ID: ${beat.id})`);
+                console.log(`   Ref Code: ${refCode}`);
+                console.log(`   Time: ${new Date().toLocaleString()}`);
+            }
+        }
+        
+        function generateReferenceCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // No confusing characters
+            let code = 'JNL';
+            
+            // Add timestamp part (last 4 digits)
+            const timePart = Date.now().toString().slice(-4);
+            code += timePart + '-';
+            
+            // Add random part
+            for (let i = 0; i < 4; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            return code;
+        }
+        
+        function showPaymentInstructions(refCode, beatTitle) {
+            alert(`✅ PURCHASE INITIATED!
+
+🔑 Your Reference Code: ${refCode}
+🎵 Beat Reserved: "${beatTitle}"
+⏰ Valid for: 1 hour
+
+📋 PAYMENT STEPS:
+1. Send ${BEAT_PRICE} to 0883930885
+2. Write "${refCode}" in reference field
+3. Screenshot & send to WhatsApp
+
+⚠️ IMPORTANT:
+• Include reference code in payment
+• Send screenshot within 1 hour
+• Beat auto-unlocks after verification
+
+📱 WhatsApp: 0883930885
+`);
+        }
+        
+        // ==================== ADMIN TOOLS ====================
+        function checkReferenceCode() {
+            const refCode = prompt("Enter Reference Code to check:", "");
+            if (!refCode) return;
+            
+            const purchase = JSON.parse(localStorage.getItem(`ref_${refCode}`));
+            if (purchase) {
+                const beat = beats.find(b => b.id === purchase.beatId);
+                const message = `
+🔍 REFERENCE CODE DETAILS:
+────────────────────
+Code: ${purchase.refCode}
+Beat: ${purchase.beatTitle}
+Beat ID: ${purchase.beatId}
+Price: ${purchase.price}
+Status: ${purchase.status}
+Time: ${new Date(purchase.timestamp).toLocaleString()}
+────────────────────
+
+Options:
+1. Mark as Paid & Unlock
+2. Cancel Purchase
+                `;
+                
+                const choice = prompt(message + "\n\nEnter 1 or 2:", "");
+                
+                if (choice === '1') {
+                    // Mark as paid and unlock
+                    if (!purchasedBeats.includes(purchase.beatId)) {
+                        purchasedBeats.push(purchase.beatId);
+                        localStorage.setItem('purchasedBeats', JSON.stringify(purchasedBeats));
+                        
+                        // Update purchase status
+                        purchase.status = 'completed';
+                        purchase.completedAt = new Date().toISOString();
+                        localStorage.setItem(`ref_${refCode}`, JSON.stringify(purchase));
+                        
+                        // Update purchase history
+                        const historyIndex = purchaseHistory.findIndex(p => p.refCode === refCode);
+                        if (historyIndex !== -1) {
+                            purchaseHistory[historyIndex] = purchase;
+                            localStorage.setItem('purchaseHistory', JSON.stringify(purchaseHistory));
+                        }
+                        
+                        alert(`✅ Beat "${purchase.beatTitle}" unlocked!\n\nCustomer can now download the full beat.`);
+                        
+                        // Refresh display
+                        const activeGenre = document.querySelector('.glow-btn.active').getAttribute('data-genre');
+                        filterBeatsByGenre(activeGenre);
+                    } else {
+                        alert("⚠️ This beat is already unlocked!");
+                    }
+                }
+            } else {
+                alert("❌ Reference code not found!");
+            }
+        }
+        
+        function showPurchaseHistory() {
+            if (purchaseHistory.length === 0) {
+                alert("📊 No purchase history found.");
+                return;
+            }
+            
+            let historyText = "📊 PURCHASE HISTORY\n══════════════════\n\n";
+            
+            purchaseHistory.forEach((purchase, index) => {
+                const date = new Date(purchase.timestamp).toLocaleDateString();
+                const time = new Date(purchase.timestamp).toLocaleTimeString();
+                historyText += `${index + 1}. ${purchase.refCode}\n`;
+                historyText += `   Beat: ${purchase.beatTitle}\n`;
+                historyText += `   Price: ${purchase.price}\n`;
+                historyText += `   Status: ${purchase.status}\n`;
+                historyText += `   Date: ${date} ${time}\n`;
+                historyText += `   ──────────────────\n`;
+            });
+            
+            alert(historyText);
+        }
+        
+        // ==================== CUSTOM AUDIO PLAYER ====================
+        function setupCustomAudioPlayer(beatCard, beatId, isPurchased) {
+            const audioElement = new Audio();
+            const beat = beats.find(b => b.id === beatId);
+            if (!beat) return;
+            
+            audioElement.src = beat.previewUrl;
+            audioElement.preload = "metadata";
+            
+            // Get DOM elements
+            const playPauseBtn = beatCard.querySelector('.play-pause-btn');
+            const progressBar = beatCard.querySelector('.progress-bar');
+            const progressContainer = beatCard.querySelector('.progress-container');
+            const currentTimeEl = beatCard.querySelector('.current-time');
+            const durationEl = beatCard.querySelector('.duration');
+            const volumeSlider = beatCard.querySelector('.volume-slider');
+            const volumeLevel = beatCard.querySelector('.volume-level');
+            
+            let isPlaying = false;
+            let updateInterval;
+            
+            // Play/Pause functionality
+            playPauseBtn.addEventListener('click', () => {
+                if (!isPurchased && audioElement.currentTime >= PREVIEW_LIMIT) {
+                    audioElement.currentTime = 0;
+                    showPurchasePrompt(beatId);
+                    return;
+                }
+                
+                if (isPlaying) {
+                    pauseAudio();
+                } else {
+                    playAudio();
+                }
+            });
+            
+            function playAudio() {
+                if (!isPurchased && audioElement.currentTime >= PREVIEW_LIMIT) {
+                    audioElement.currentTime = 0;
+                    showPurchasePrompt(beatId);
+                    return;
+                }
+                
+                audioElement.play();
+                isPlaying = true;
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                playPauseBtn.style.background = 'var(--primary-dark)';
+                
+                updateInterval = setInterval(updateProgress, 100);
+            }
+            
+            function pauseAudio() {
+                audioElement.pause();
+                isPlaying = false;
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                playPauseBtn.style.background = 'var(--primary)';
+                clearInterval(updateInterval);
+            }
+            
+            function updateProgress() {
+                const currentTime = audioElement.currentTime;
+                const duration = isPurchased ? audioElement.duration : PREVIEW_LIMIT;
+                
+                const progressPercent = (currentTime / duration) * 100;
+                progressBar.style.width = `${progressPercent}%`;
+                
+                currentTimeEl.textContent = formatTime(currentTime);
+                durationEl.textContent = formatTime(duration);
+                
+                if (!isPurchased && currentTime >= PREVIEW_LIMIT) {
+                    pauseAudio();
+                    audioElement.currentTime = 0;
+                    progressBar.style.width = '0%';
+                    currentTimeEl.textContent = '0:00';
+                    showPurchasePrompt(beatId);
+                }
+            }
+            
+            progressContainer.addEventListener('click', (e) => {
+                const rect = progressContainer.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const width = rect.width;
+                const duration = isPurchased ? audioElement.duration : PREVIEW_LIMIT;
+                
+                let newTime = (clickX / width) * duration;
+                
+                if (!isPurchased && newTime > PREVIEW_LIMIT) {
+                    newTime = PREVIEW_LIMIT;
+                    showPurchasePrompt(beatId);
+                }
+                
+                audioElement.currentTime = newTime;
+                updateProgress();
+            });
+            
+            volumeSlider.addEventListener('click', (e) => {
+                const rect = volumeSlider.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const width = rect.width;
+                const volume = clickX / width;
+                
+                audioElement.volume = Math.max(0, Math.min(1, volume));
+                volumeLevel.style.width = `${volume * 100}%`;
+            });
+            
+            audioElement.volume = 1;
+            
+            audioElement.addEventListener('ended', () => {
+                if (isPurchased) {
+                    audioElement.currentTime = 0;
+                    pauseAudio();
+                    progressBar.style.width = '0%';
+                    currentTimeEl.textContent = '0:00';
+                } else {
+                    showPurchasePrompt(beatId);
+                }
+            });
+            
+            audioElement.addEventListener('seeking', () => {
+                if (!isPurchased && audioElement.currentTime > PREVIEW_LIMIT) {
+                    audioElement.currentTime = PREVIEW_LIMIT;
+                    showPurchasePrompt(beatId);
+                }
+            });
+            
+            audioElement.addEventListener('loadedmetadata', () => {
+                durationEl.textContent = formatTime(isPurchased ? audioElement.duration : PREVIEW_LIMIT);
+            });
+        }
+        
+        function showPurchasePrompt(beatId) {
+            const beat = beats.find(b => b.id === beatId);
+            if (!beat) return;
+            
+            const message = `⏱️ 30-Second Preview Ended\n\n🎵 "${beat.title}"\n💰 Price: ${BEAT_PRICE}\n\nClick "Buy / Unlock" to purchase full beat.`;
+            alert(message);
+        }
+        
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+        
+        function filterBeatsByGenre(genre) {
+            if (genre === 'all') {
+                renderBeats(beats);
+                return;
+            }
+            const filteredBeats = beats.filter(beat => beat.genre === genre);
+            renderBeats(filteredBeats);
+        }
+        
+        function filterBeatsBySearch() {
+            const query = searchBar.value.toLowerCase().trim();
+            
+            if (query === '') {
+                const activeGenre = document.querySelector('.glow-btn.active').getAttribute('data-genre');
+                filterBeatsByGenre(activeGenre);
+                return;
+            }
+            
+            const filteredBeats = beats.filter(beat => 
+                beat.title.toLowerCase().includes(query)
+            );
+            
+            renderBeats(filteredBeats);
+        }
+        
+        function downloadBeat(beatId) {
+            const beat = beats.find(b => b.id === beatId);
+            if (!beat) return;
+            
+            const link = document.createElement('a');
+            link.href = beat.previewUrl;
+            link.download = `${beat.title.replace(/\s+/g, '_')}_JONALEM_BEATZ.mp3`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert(`⬇️ Downloading "${beat.title}"...\n\nThank you for supporting JONALEM BEATZ!`);
+        }
+        
+        function handleBeatUpload(e) {
+            e.preventDefault();
+            
+            const titleInput = document.getElementById('beatTitle');
+            const genreInput = document.getElementById('beatGenre');
+            const fileInput = document.getElementById('beatFile');
+            
+            if (!titleInput.value.trim()) {
+                alert("Please enter a beat title");
+                titleInput.focus();
+                return;
+            }
+            
+            if (!genreInput.value) {
+                alert("Please select a genre");
+                genreInput.focus();
+                return;
+            }
+            
+            if (!fileInput.files[0]) {
+                alert("Please select an audio file");
+                fileInput.focus();
+                return;
+            }
+            
+            const audioFile = fileInput.files[0];
+            
+            if (!audioFile.type.startsWith('audio/')) {
+                alert("Please select an audio file (MP3, WAV, etc.)");
+                return;
+            }
+            
+            const audioUrl = URL.createObjectURL(audioFile);
+            
+            const newBeat = {
+                id: nextId++, // AUTO-ASSIGNED UNIQUE ID
+                title: titleInput.value.trim(),
+                genre: genreInput.value,
+                previewUrl: audioUrl,
+                fileName: audioFile.name,
+                fileSize: (audioFile.size / 1024 / 1024).toFixed(2) + " MB",
+                uploaded: new Date().toISOString()
+            };
+            
+            beats.unshift(newBeat);
+            localStorage.setItem('jonalemBeats', JSON.stringify(beats));
+            
+            titleInput.value = '';
+            genreInput.value = '';
+            fileInput.value = '';
+            
+            const activeGenre = document.querySelector('.glow-btn.active').getAttribute('data-genre');
+            filterBeatsByGenre(activeGenre);
+            
+            alert(`✅ "${newBeat.title}" uploaded successfully!\n\n🎵 Beat ID: ${newBeat.id}\n💰 Price: ${BEAT_PRICE}\n🎵 Genre: ${newBeat.genre}\n⏱️ Preview: 30 seconds\n\nThe beat is now live with auto-reference code system!`);
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function updateBeatCount(count) {
+            beatCount.textContent = count;
+        }
+        
+        // ==================== ADMIN EXPORT/IMPORT ====================
+        function exportBeatsData() {
+            const dataStr = JSON.stringify(beats, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            
+            const downloadUrl = URL.createObjectURL(dataBlob);
+            const downloadLink = document.createElement('a');
+            downloadLink.href = downloadUrl;
+            downloadLink.download = `jonalem-beats-${new Date().toISOString().slice(0,10)}.json`;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            
+            alert(`✅ Exported ${beats.length} beats with their unique IDs!`);
+        }
+        
+        function importBeatsData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedBeats = JSON.parse(e.target.result);
+                    
+                    if (!Array.isArray(importedBeats)) {
+                        throw new Error('Invalid data format');
+                    }
+                    
+                    if (confirm(`Import ${importedBeats.length} beats? This will replace your current beats.`)) {
+                        beats = importedBeats;
+                        nextId = Math.max(...beats.map(b => b.id)) + 1;
+                        localStorage.setItem('jonalemBeats', JSON.stringify(beats));
+                        
+                        const activeGenre = document.querySelector('.glow-btn.active').getAttribute('data-genre');
+                        filterBeatsByGenre(activeGenre);
+                        
+                        alert(`✅ Successfully imported ${beats.length} beats with reference system!`);
+                    }
+                } catch (error) {
+                    alert('Error importing beats: Invalid JSON file format.');
+                }
+            };
+            reader.readAsText(file);
+            
+            event.target.value = '';
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', initPage);
+        
+        // Console info
+        console.log("🎵 JONALEM BEATZ - Smart Reference Code System Active!");
+        console.log("💰 Price: MWK 6,000 per beat");
+        console.log("🔑 Each purchase generates unique reference code");
+        console.log("📱 Payment: TNM Mpamba - 0883930885, Airtel Money - 0996125671");
+        console.log("💡 Admin Tools: Use floating buttons for management");
+        console.log("🔍 Type 'checkReferenceCode()' in console to check codes");
+    </script>
 </body>
 </html>
