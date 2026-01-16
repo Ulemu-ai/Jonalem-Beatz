@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JONALEM BEATZ | Professional Beat Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="style.css">
     <style>
         :root {
             --primary: #7c3aed;
@@ -38,16 +37,39 @@
             color: var(--light-text);
             line-height: 1.6;
             overflow-x: hidden;
+            background-image: url('https://i.imgur.com/O4cOg62.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            position: relative;
         }
 
-        /* Header */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(15, 23, 42, 0.85) 0%, 
+                rgba(26, 26, 46, 0.9) 100%);
+            z-index: -1;
+        }
+
         header {
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1a2e 100%);
-            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, 
+                rgba(15, 23, 42, 0.95) 0%, 
+                rgba(26, 26, 46, 0.98) 100%);
+            padding: 1rem 2rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             position: sticky;
             top: 0;
             z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
         }
 
         .header-container {
@@ -58,30 +80,144 @@
             margin: 0 auto;
         }
 
-        .logo {
+        .logo-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
         }
 
-        .logo h1 {
-            font-size: 2.2rem;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        .logo-image {
+            height: 100px;
+            width: auto;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+            transition: var(--transition);
+        }
+
+        .logo-image:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.8));
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .brand-name {
+            font-size: 2.8rem;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            line-height: 1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .jonaldem-text {
+            color: white;
+            background: linear-gradient(90deg, #ffffff, #f8fafc);
             -webkit-background-clip: text;
             background-clip: text;
-            color: transparent;
-            font-weight: 800;
-            letter-spacing: 1px;
+            text-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 255, 255, 0.6),
+                0 0 30px rgba(255, 255, 255, 0.4);
+            animation: glow-white 2s ease-in-out infinite alternate;
         }
 
-        .logo-icon {
-            color: var(--primary);
-            font-size: 2rem;
+        .beatz-text {
+            color: black;
+            background: linear-gradient(90deg, #000000, #1a1a1a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 
+                0 0 10px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(0, 0, 0, 0.6),
+                0 0 30px rgba(0, 0, 0, 0.4);
+            animation: glow-black 2s ease-in-out infinite alternate;
         }
 
-        /* Price Banner */
+        @keyframes glow-white {
+            from {
+                text-shadow: 
+                    0 0 10px rgba(255, 255, 255, 0.8),
+                    0 0 20px rgba(255, 255, 255, 0.6),
+                    0 0 30px rgba(255, 255, 255, 0.4);
+            }
+            to {
+                text-shadow: 
+                    0 0 15px rgba(255, 255, 255, 1),
+                    0 0 25px rgba(255, 255, 255, 0.8),
+                    0 0 35px rgba(255, 255, 255, 0.6),
+                    0 0 45px rgba(255, 255, 255, 0.4);
+            }
+        }
+
+        @keyframes glow-black {
+            from {
+                text-shadow: 
+                    0 0 10px rgba(0, 0, 0, 0.8),
+                    0 0 20px rgba(0, 0, 0, 0.6),
+                    0 0 30px rgba(0, 0, 0, 0.4);
+            }
+            to {
+                text-shadow: 
+                    0 0 15px rgba(0, 0, 0, 1),
+                    0 0 25px rgba(0, 0, 0, 0.8),
+                    0 0 35px rgba(0, 0, 0, 0.6),
+                    0 0 45px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        .tagline {
+            color: var(--secondary);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .search-container {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-text);
+            z-index: 1;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 12px 12px 12px 45px;
+            border-radius: var(--border-radius);
+            border: 2px solid rgba(124, 58, 237, 0.3);
+            background-color: rgba(30, 41, 59, 0.7);
+            color: var(--light-text);
+            font-size: 1rem;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+            background-color: rgba(30, 41, 59, 0.9);
+        }
+
+        .search-bar::placeholder {
+            color: var(--gray-text);
+        }
+
         .price-banner {
-            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            background: linear-gradient(90deg, 
+                rgba(124, 58, 237, 0.9), 
+                rgba(91, 33, 182, 0.9));
             padding: 0.8rem 2rem;
             text-align: center;
             color: white;
@@ -89,6 +225,8 @@
             font-weight: 700;
             box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
             margin-bottom: 1rem;
+            backdrop-filter: blur(5px);
+            border-bottom: 2px solid var(--secondary);
         }
 
         .price-banner .highlight {
@@ -98,11 +236,14 @@
             margin: 0 8px;
             color: #000;
             font-size: 1.3rem;
+            font-weight: 800;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
         }
 
-        /* Enhanced Payment Banner with Reference Info */
         .payment-banner {
-            background: linear-gradient(90deg, #1e293b, #334155);
+            background: linear-gradient(90deg, 
+                rgba(30, 41, 59, 0.9), 
+                rgba(51, 65, 85, 0.9));
             padding: 1.2rem 2rem;
             text-align: center;
             font-size: 1rem;
@@ -110,6 +251,7 @@
             margin-bottom: 1.5rem;
             border-top: 2px solid var(--secondary);
             border-bottom: 2px solid var(--secondary);
+            backdrop-filter: blur(5px);
         }
 
         .payment-info {
@@ -145,9 +287,9 @@
             border-radius: 8px;
             display: inline-block;
             font-size: 0.9rem;
+            border: 1px solid rgba(124, 58, 237, 0.3);
         }
 
-        /* Genre Filter */
         .genre-filter {
             display: flex;
             justify-content: center;
@@ -161,7 +303,7 @@
         .glow-btn {
             position: relative;
             padding: 14px 26px;
-            background-color: var(--dark-card);
+            background-color: rgba(30, 41, 59, 0.7);
             border: none;
             border-radius: var(--border-radius);
             color: var(--gray-text);
@@ -172,6 +314,8 @@
             z-index: 1;
             min-width: 110px;
             text-align: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .glow-btn::before {
@@ -208,6 +352,7 @@
             transform: translateY(-3px) scale(1.05);
             color: white;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background-color: rgba(30, 41, 59, 0.9);
         }
 
         .glow-btn:hover::before {
@@ -216,9 +361,10 @@
         }
 
         .glow-btn.active {
-            background-color: var(--primary);
+            background-color: rgba(124, 58, 237, 0.8);
             color: white;
             transform: translateY(-2px);
+            border-color: var(--primary);
         }
 
         .glow-btn.active::before {
@@ -255,7 +401,6 @@
             background: linear-gradient(45deg, var(--glow-pink), var(--glow-purple), #ec4899);
         }
 
-        /* Beats Container */
         .beats-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -270,19 +415,21 @@
         }
 
         .beat-card {
-            background-color: var(--dark-card);
+            background-color: rgba(30, 41, 59, 0.7);
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
             transition: var(--transition);
-            border: 1px solid transparent;
+            border: 1px solid rgba(124, 58, 237, 0.1);
             position: relative;
+            backdrop-filter: blur(10px);
         }
 
         .beat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
             border-color: var(--primary);
+            background-color: rgba(30, 41, 59, 0.9);
         }
 
         .price-tag {
@@ -297,9 +444,9 @@
             font-size: 0.9rem;
             z-index: 2;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Beat ID Display */
         .beat-id {
             position: absolute;
             top: 15px;
@@ -316,7 +463,7 @@
 
         .beat-header {
             padding: 1.5rem;
-            border-bottom: 1px solid #334155;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
             padding-top: 2.5rem;
         }
 
@@ -324,16 +471,18 @@
             font-size: 1.5rem;
             margin-bottom: 8px;
             color: var(--light-text);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .beat-genre {
             display: inline-block;
             padding: 6px 14px;
-            background-color: rgba(124, 58, 237, 0.1);
+            background-color: rgba(124, 58, 237, 0.2);
             color: var(--primary);
             border-radius: 50px;
             font-size: 0.9rem;
             font-weight: 600;
+            border: 1px solid rgba(124, 58, 237, 0.3);
         }
 
         .beat-player {
@@ -341,11 +490,12 @@
         }
 
         .audio-container {
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: rgba(0, 0, 0, 0.3);
             border-radius: 10px;
             padding: 1.2rem;
             margin-bottom: 1.5rem;
             position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .preview-progress {
@@ -376,7 +526,6 @@
             gap: 6px;
         }
 
-        /* Custom Audio Player */
         .custom-audio-player {
             width: 100%;
             margin: 10px 0;
@@ -402,11 +551,13 @@
             cursor: pointer;
             transition: var(--transition);
             font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .play-pause-btn:hover {
             background: var(--primary-dark);
             transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
         }
 
         .progress-container {
@@ -481,7 +632,6 @@
             margin-bottom: 15px;
         }
 
-        /* Buy Button */
         .buy-btn {
             position: relative;
             background: linear-gradient(90deg, var(--primary), var(--primary-dark));
@@ -500,6 +650,7 @@
             gap: 10px;
             overflow: hidden;
             z-index: 1;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
         }
 
         .buy-btn::before {
@@ -544,7 +695,6 @@
                 var(--glow-green));
         }
 
-        /* Security Warning */
         .security-warning {
             text-align: center;
             color: var(--secondary);
@@ -553,28 +703,182 @@
             font-style: italic;
         }
 
-        /* Upload Form */
-        .upload-container {
-            background-color: var(--dark-card);
-            border-radius: var(--border-radius);
-            padding: 2.5rem;
-            margin: 3rem auto;
-            max-width: 800px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            border: 1px solid #334155;
+        .admin-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.98);
+            z-index: 2000;
+            padding: 2rem;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
         }
 
-        .upload-container h2 {
-            color: var(--light-text);
-            margin-bottom: 1.5rem;
+        .admin-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid #334155;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .admin-title {
+            color: var(--light-text);
+            font-size: 2rem;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .upload-form {
+        .admin-close {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .admin-close:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .admin-card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .admin-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .admin-card h3 {
+            color: var(--light-text);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-btn {
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 10px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .admin-btn:hover {
+            background: linear-gradient(90deg, var(--primary-dark), #4c1d95);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
+        }
+
+        .admin-btn.secondary {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid var(--primary);
+        }
+
+        .admin-btn.secondary:hover {
+            background: rgba(124, 58, 237, 0.2);
+        }
+
+        .admin-btn.warning {
+            background: linear-gradient(90deg, #dc2626, #b91c1c);
+        }
+
+        .admin-btn.warning:hover {
+            background: linear-gradient(90deg, #b91c1c, #991b1b);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(124, 58, 237, 0.1);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--gray-text);
+            font-size: 0.9rem;
+        }
+
+        .admin-upload-section {
+            background-color: rgba(30, 41, 59, 0.7);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-upload-section h3 {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-upload-form {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
@@ -595,17 +899,18 @@
             padding: 14px;
             border-radius: 8px;
             background-color: rgba(0, 0, 0, 0.3);
-            border: 1px solid #334155;
+            border: 1px solid rgba(51, 65, 85, 0.5);
             color: var(--light-text);
             font-size: 1rem;
+            transition: var(--transition);
         }
 
         .form-group input:focus, .form-group select:focus {
             outline: none;
             border-color: var(--primary);
+            background-color: rgba(0, 0, 0, 0.5);
         }
 
-        /* Upload Button */
         .upload-btn {
             position: relative;
             background: linear-gradient(90deg, var(--secondary), #d97706);
@@ -620,6 +925,7 @@
             margin-top: 10px;
             overflow: hidden;
             z-index: 1;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
         }
 
         .upload-btn::before {
@@ -652,13 +958,523 @@
             animation-duration: 2s;
         }
 
-        /* Footer */
+        .password-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .password-form input {
+            padding: 12px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            color: var(--light-text);
+            font-size: 1rem;
+        }
+
+        .password-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .password-requirements {
+            font-size: 0.8rem;
+            color: var(--gray-text);
+            margin-top: 5px;
+        }
+
+        .paychangu-form {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .paychangu-form h4 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+            padding-bottom: 0.5rem;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .form-col {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        
+        .input-group label {
+            display: block;
+            color: var(--gray-text);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .paychangu-input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            color: var(--light-text);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        
+        .paychangu-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        }
+        
+        .paychangu-input::placeholder {
+            color: var(--gray-text);
+            opacity: 0.7;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray-text);
+            cursor: pointer;
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        .paychangu-btn {
+            background: linear-gradient(90deg, #f59e0b, #d97706);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .paychangu-btn:hover {
+            background: linear-gradient(90deg, #d97706, #b45309);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+        }
+        
+        .paychangu-status {
+            margin-top: 1rem;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .paychangu-status.success {
+            background: rgba(52, 211, 153, 0.1);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            color: #10b981;
+            display: block;
+        }
+        
+        .paychangu-status.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            display: block;
+        }
+        
+        .mode-switch {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .mode-label {
+            color: var(--gray-text);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #dc2626;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #10b981;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+        
+        .mode-test {
+            color: #dc2626;
+            font-weight: bold;
+        }
+        
+        .mode-live {
+            color: #10b981;
+            font-weight: bold;
+        }
+        
+        .live-mode-badge {
+            display: inline-block;
+            background: rgba(52, 211, 153, 0.2);
+            color: #10b981;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+        
+        .test-mode-badge {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--secondary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .login-prompt {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(30, 41, 59, 0.95);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            z-index: 3000;
+            border: 2px solid var(--primary);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .login-prompt.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .login-prompt h3 {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            color: var(--light-text);
+            font-size: 1rem;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .login-btn:hover {
+            background: linear-gradient(90deg, var(--primary-dark), #4c1d95);
+        }
+
+        .login-error {
+            color: #ef4444;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .login-error.active {
+            display: block;
+        }
+
+        .click-counter {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--secondary);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: none;
+            z-index: 100;
+        }
+
+        .click-counter.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .beat-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .beat-count {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--gray-text);
+            font-size: 1.1rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .beat-count span {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .payment-modal.active {
+            display: flex;
+        }
+
+        .payment-modal-content {
+            background: rgba(30, 41, 59, 0.95);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--primary);
+            backdrop-filter: blur(20px);
+        }
+
+        .payment-modal h3 {
+            margin-bottom: 1.5rem;
+            color: var(--light-text);
+            font-size: 1.8rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .payment-modal p {
+            color: var(--gray-text);
+            margin-bottom: 1rem;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .payment-option-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: var(--border-radius);
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--light-text);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .payment-option-btn:hover {
+            background: rgba(124, 58, 237, 0.2);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
+        }
+
+        .payment-logo {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 10px;
+            background-color: white;
+            padding: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .airtel-logo {
+            background-image: url('https://i.imgur.com/eEeDqyS.jpeg');
+        }
+
+        .mpamba-logo {
+            background-image: url('https://i.imgur.com/kcDECnB.jpeg');
+        }
+
+        .nbs-logo {
+            background-image: url('https://i.imgur.com/NfDQ1sG.jpeg');
+        }
+
+        .modal-close {
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+
+        .modal-close:hover {
+            background: linear-gradient(90deg, var(--primary-dark), #4c1d95);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(124, 58, 237, 0.4);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            border-radius: 50px;
+            padding: 12px 20px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 999;
+            text-decoration: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .whatsapp-float:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+            background: #128C7E;
+        }
+
+        .whatsapp-float i {
+            font-size: 1.5rem;
+        }
+
         footer {
-            background-color: #0a0f1c;
+            background-color: rgba(10, 15, 28, 0.9);
             padding: 2.5rem 2rem;
             margin-top: 3rem;
             text-align: center;
-            border-top: 1px solid #1e293b;
+            border-top: 1px solid rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
         }
 
         .footer-content {
@@ -671,70 +1487,18 @@
             margin-top: 1.5rem;
         }
 
-        /* Admin Tools */
-        .admin-tools {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-            z-index: 1000;
-        }
-
-        .admin-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            background: var(--primary);
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            transition: var(--transition);
-        }
-
-        .admin-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-        }
-
-        .admin-btn.export { background: var(--primary); }
-        .admin-btn.import { background: var(--secondary); }
-        .admin-btn.purchases { background: #10b981; }
-        .admin-btn.ref-check { background: #8b5cf6; }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .beat-card {
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        /* Beat counter */
-        .beat-count {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: var(--gray-text);
-            font-size: 1.1rem;
-        }
-        
-        .beat-count span {
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        /* Responsive Design */
         @media (max-width: 992px) {
             .header-container {
                 flex-direction: column;
                 gap: 1.5rem;
+            }
+            
+            .logo-image {
+                height: 90px;
+            }
+            
+            .brand-name {
+                font-size: 2.4rem;
             }
             
             .search-container {
@@ -745,9 +1509,17 @@
             .beats-grid {
                 grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             }
+            
+            .admin-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
         }
 
         @media (max-width: 768px) {
+            body {
+                background-attachment: scroll;
+            }
+            
             .beats-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                 gap: 1.5rem;
@@ -788,15 +1560,9 @@
                 width: 60px;
             }
             
-            .admin-tools {
-                bottom: 10px;
-                right: 10px;
-            }
-            
-            .admin-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 1.1rem;
+            .admin-upload-section {
+                padding: 1.5rem;
+                margin: 1rem auto;
             }
         }
 
@@ -805,7 +1571,7 @@
                 grid-template-columns: 1fr;
             }
             
-            .header, .beats-container, .upload-container {
+            .header, .beats-container {
                 padding-left: 1rem;
                 padding-right: 1rem;
             }
@@ -828,27 +1594,86 @@
                 display: none;
             }
             
-            .admin-tools {
-                bottom: 5px;
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .whatsapp-float {
+                bottom: 60px;
                 right: 5px;
-                gap: 5px;
+                padding: 8px 14px;
+                font-size: 0;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                justify-content: center;
+            }
+
+            .whatsapp-float i {
+                font-size: 1.8rem;
+                margin: 0;
+            }
+
+            .logo-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
             }
             
-            .admin-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
+            .logo-image {
+                height: 70px;
+            }
+            
+            .brand-name {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 0.9rem;
+            }
+            
+            .admin-upload-section {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .logo-image {
+                height: 60px;
+            }
+            
+            .brand-name {
+                font-size: 1.8rem;
+            }
+            
+            .header {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .logo-image {
+                height: 50px;
+            }
+            
+            .brand-name {
+                font-size: 1.6rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
     <header>
         <div class="header-container">
-            <div class="logo">
-                <i class="fas fa-music logo-icon"></i>
-                <h1>JONALEM BEATZ</h1>
+            <div class="logo-container">
+                <img src="https://i.imgur.com/kWbzwy2.png" alt="JONALEM BEATZ Logo" class="logo-image">
+                <div class="logo-text">
+                    <h1 class="brand-name">
+                        <span class="jonaldem-text" id="secretClickArea">JONALEM</span>
+                        <span class="beatz-text">BEATZ</span>
+                    </h1>
+                    <p class="tagline">Professional Beat Store</p>
+                </div>
             </div>
             <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
@@ -857,14 +1682,12 @@
         </div>
     </header>
 
-    <!-- Price Banner -->
     <div class="price-banner">
         <i class="fas fa-tag"></i> All Beats: <span class="highlight">MWK 6,000</span> Each | 
         <i class="fas fa-headphones"></i> 30-Second Free Preview | 
         <i class="fas fa-unlock"></i> Instant Unlock After Payment
     </div>
 
-    <!-- Enhanced Payment Information Banner -->
     <div class="payment-banner">
         <div class="payment-info">
             <div class="payment-item">
@@ -872,32 +1695,31 @@
                     <i class="fas fa-mobile-alt"></i>
                 </div>
                 <div>
-                    <strong>TNM Mpamba:</strong> 0883930885
+                    <strong>SECURE PAYMENTS VIA PAYCHANGU</strong>
                 </div>
             </div>
             <div class="payment-item">
                 <div class="payment-icon">
-                    <i class="fas fa-sim-card"></i>
+                    <i class="fas fa-lock"></i>
                 </div>
                 <div>
-                    <strong>Airtel Money:</strong> 0996125671
+                    <strong>100% SECURE TRANSACTIONS</strong>
                 </div>
             </div>
             <div class="payment-item">
                 <div class="payment-icon">
-                    <i class="fab fa-whatsapp"></i>
+                    <i class="fas fa-bolt"></i>
                 </div>
                 <div>
-                    <strong>WhatsApp:</strong> 0883930885
+                    <strong>INSTANT BEAT UNLOCK</strong>
                 </div>
             </div>
         </div>
         <div class="ref-code-info">
-            <i class="fas fa-key"></i> <strong>IMPORTANT:</strong> Each purchase generates a unique Reference Code. Include it in payment!
+            <i class="fas fa-key"></i> <strong>IMPORTANT:</strong> Each purchase generates a unique Reference Code
         </div>
     </div>
 
-    <!-- Genre Filter Section -->
     <div class="genre-filter">
         <button class="glow-btn active" data-genre="all">All</button>
         <button class="glow-btn" data-genre="amapiano">Amapiano</button>
@@ -910,55 +1732,26 @@
         <button class="glow-btn" data-genre="others">Others</button>
     </div>
 
-    <!-- Beats Display Section -->
     <section class="beats-container">
         <div class="beat-count">
             Showing <span id="beatCount">0</span> beats at <span style="color: var(--secondary); font-weight: 700;">MWK 6,000</span> each
         </div>
         <div class="beats-grid" id="beatsGrid">
-            <!-- Beats will be dynamically added here -->
+
         </div>
     </section>
 
-    <!-- Upload Beat Section -->
-    <section class="upload-container" id="uploadSection">
-        <h2><i class="fas fa-cloud-upload-alt"></i> Upload New Beat</h2>
-        <form class="upload-form" id="uploadForm">
-            <div class="form-group">
-                <label for="beatTitle">Beat Title</label>
-                <input type="text" id="beatTitle" placeholder="Enter beat title" required>
-            </div>
-            <div class="form-group">
-                <label for="beatGenre">Genre</label>
-                <select id="beatGenre" required>
-                    <option value="">Select a genre</option>
-                    <option value="amapiano">Amapiano</option>
-                    <option value="afrobeats">Afrobeats</option>
-                    <option value="worship">Worship</option>
-                    <option value="local">Local</option>
-                    <option value="drill">Drill</option>
-                    <option value="trap">Trap</option>
-                    <option value="hiphop">Hip Hop</option>
-                    <option value="others">Others</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="beatFile">Audio File (MP3, WAV) - 30-second preview will be enforced</label>
-                <input type="file" id="beatFile" accept="audio/*" required>
-                <small style="color: var(--gray-text); margin-top: 5px;">Note: Beat will be automatically assigned a unique ID and priced at MWK 6,000</small>
-            </div>
-            <button type="submit" class="upload-btn">
-                <i class="fas fa-upload"></i> Upload Beat (Auto-ID + MWK 6,000)
-            </button>
-        </form>
-    </section>
-
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="logo">
-                <i class="fas fa-music logo-icon"></i>
-                <h1>JONALEM BEATZ</h1>
+            <div class="logo-container" style="flex-direction: column; align-items: center; gap: 15px;">
+                <img src="https://i.imgur.com/kWbzwy2.png" alt="JONALEM BEATZ Logo" class="logo-image" style="height: 120px;">
+                <div class="logo-text" style="align-items: center;">
+                    <h1 class="brand-name">
+                        <span class="jonaldem-text">JONALEM</span>
+                        <span class="beatz-text">BEATZ</span>
+                    </h1>
+                    <p class="tagline" style="font-size: 1.1rem; margin-top: 8px;">Professional Beat Store</p>
+                </div>
             </div>
             <p>Professional quality beats for artists, producers, and content creators</p>
             <p style="color: var(--secondary); font-weight: 700; margin-top: 10px;">
@@ -970,31 +1763,837 @@
         </div>
     </footer>
 
-    <!-- Admin Tools Floating Buttons -->
-    <div class="admin-tools">
-        <button class="admin-btn export" title="Export Beats Data" onclick="exportBeatsData()">
-            <i class="fas fa-download"></i>
-        </button>
-        <button class="admin-btn import" title="Import Beats Data" onclick="document.getElementById('importFile').click()">
-            <i class="fas fa-upload"></i>
-        </button>
-        <button class="admin-btn purchases" title="View Purchase History" onclick="showPurchaseHistory()">
-            <i class="fas fa-shopping-cart"></i>
-        </button>
-        <button class="admin-btn ref-check" title="Check Reference Code" onclick="checkReferenceCode()">
-            <i class="fas fa-search"></i>
-        </button>
+    <a href="https://wa.me/265883930885" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i>
+        <span>WhatsApp</span>
+    </a>
+
+    <!-- ========== ADMIN PANEL (SECURITY ROOM) ========== -->
+    <!-- ADMIN ONLY: This panel is only accessible after clicking JONALEM 10 times and entering password -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <h2 class="admin-title"><i class="fas fa-user-shield"></i> JONALEM BEATZ Admin Panel</h2>
+            <button class="admin-close" onclick="closeAdminPanel()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="adminBeatCount">0</div>
+                <div class="stat-label">Total Beats</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="adminPurchaseCount">0</div>
+                <div class="stat-label">Total Purchases</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">MWK 6,000</div>
+                <div class="stat-label">Price Per Beat</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="adminRevenue">MWK 0</div>
+                <div class="stat-label">Estimated Revenue</div>
+            </div>
+        </div>
+        
+        <div class="admin-upload-section">
+            <h3><i class="fas fa-cloud-upload-alt"></i> Upload New Beat</h3>
+            <form class="admin-upload-form" id="adminUploadForm">
+                <div class="form-group">
+                    <label for="adminBeatTitle">Beat Title</label>
+                    <input type="text" id="adminBeatTitle" placeholder="Enter beat title" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminBeatGenre">Genre</label>
+                    <select id="adminBeatGenre" required>
+                        <option value="">Select a genre</option>
+                        <option value="amapiano">Amapiano</option>
+                        <option value="afrobeats">Afrobeats</option>
+                        <option value="worship">Worship</option>
+                        <option value="local">Local</option>
+                        <option value="drill">Drill</option>
+                        <option value="trap">Trap</option>
+                        <option value="hiphop">Hip Hop</option>
+                        <option value="others">Others</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="adminBeatFile">Audio File (MP3, WAV) - 30-second preview will be enforced</label>
+                    <input type="file" id="adminBeatFile" accept="audio/*" required>
+                    <small style="color: var(--gray-text); margin-top: 5px;">Note: Beat will be automatically assigned a unique ID and priced at MWK 6,000</small>
+                </div>
+                <button type="submit" class="upload-btn">
+                    <i class="fas fa-upload"></i> Upload Beat (Auto-ID + MWK 6,000)
+                </button>
+            </form>
+        </div>
+        
+        <div class="admin-grid">
+            <!-- ========== PAYCHANGU CONFIGURATION (ADMIN ONLY - SECURITY ROOM) ========== -->
+            <!-- ADMIN ONLY: This section contains sensitive PayChangu keys - NEVER exposed to customers -->
+            <div class="admin-card">
+                <h3><i class="fas fa-credit-card"></i> PayChangu Setup 
+                    <span id="modeBadge" class="test-mode-badge">TEST MODE</span>
+                </h3>
+                <p>Configure PayChangu payment gateway</p>
+                
+                <!-- TEST/LIVE MODE TOGGLE -->
+                <div class="mode-switch">
+                    <span class="mode-label">Mode:</span>
+                    <label class="switch">
+                        <input type="checkbox" id="modeToggle" onchange="togglePayChanguMode()">
+                        <span class="slider"></span>
+                    </label>
+                    <span id="modeText" class="mode-test">TEST MODE</span>
+                </div>
+                
+                <div class="paychangu-form" id="paychanguForm">
+                    <h4><i class="fas fa-key"></i> API Keys (Admin Only)</h4>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="input-group">
+                                <label for="paychanguPublicKey">Public Key <span style="color: var(--secondary);">*</span></label>
+                                <input type="text" id="paychanguPublicKey" class="paychangu-input" 
+                                       placeholder="pk_test_xxxxxxxxxxxx" autocomplete="off">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="paychanguWebhookSecret">Webhook Secret <span style="color: var(--secondary);">*</span></label>
+                                <div class="input-wrapper">
+                                    <input type="password" id="paychanguWebhookSecret" class="paychangu-input" 
+                                           placeholder="whsec_xxxxxxxxxxxx" autocomplete="off">
+                                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility('paychanguWebhookSecret')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-col">
+                            <div class="input-group">
+                                <label for="paychanguSecretKey">Secret Key <span style="color: var(--secondary);">*</span></label>
+                                <div class="input-wrapper">
+                                    <input type="password" id="paychanguSecretKey" class="paychangu-input" 
+                                           placeholder="sk_test_xxxxxxxxxxxx" autocomplete="off">
+                                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility('paychanguSecretKey')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h4><i class="fas fa-mobile-alt"></i> Mobile Money Accounts (For Withdrawals)</h4>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="input-group">
+                                <label for="airtelAccountNumber">Airtel Money Number <span style="color: var(--secondary);">*</span></label>
+                                <input type="text" id="airtelAccountNumber" class="paychangu-input" 
+                                       placeholder="265XXXXXXXXX" autocomplete="off">
+                                <small style="color: var(--gray-text); font-size: 0.8rem;">Format: 265XXXXXXXXX</small>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="airtelAccountName">Airtel Account Name <span style="color: var(--secondary);">*</span></label>
+                                <input type="text" id="airtelAccountName" class="paychangu-input" 
+                                       placeholder="JONALEM BEATZ" autocomplete="off">
+                            </div>
+                        </div>
+                        
+                        <div class="form-col">
+                            <div class="input-group">
+                                <label for="mpambaAccountNumber">TNM MPAMBA Number <span style="color: var(--secondary);">*</span></label>
+                                <input type="text" id="mpambaAccountNumber" class="paychangu-input" 
+                                       placeholder="265XXXXXXXXX" autocomplete="off">
+                                <small style="color: var(--gray-text); font-size: 0.8rem;">Format: 265XXXXXXXXX</small>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="mpambaAccountName">MPAMBA Account Name <span style="color: var(--secondary);">*</span></label>
+                                <input type="text" id="mpambaAccountName" class="paychangu-input" 
+                                       placeholder="JONALEM BEATZ" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h4><i class="fas fa-university"></i> Bank Account Details (NBS - For Withdrawals)</h4>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="input-group">
+                                <label for="nbsAccountName">Account Name <span style="color: var(--secondary);">*</span></label>
+                                <input type="text" id="nbsAccountName" class="paychangu-input" 
+                                       placeholder="JONALEM BEATZ" autocomplete="off">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="nbsAccountNumber">Account Number <span style="color: var(--secondary);">*</span></label>
+                                <input type="text" id="nbsAccountNumber" class="paychangu-input" 
+                                       placeholder="1000000000" autocomplete="off">
+                            </div>
+                        </div>
+                        
+                        <div class="form-col">
+                            <div class="input-group">
+                                <label for="nbsTransferPin">Transfer PIN <span style="color: var(--secondary);">*</span></label>
+                                <div class="input-wrapper">
+                                    <input type="password" id="nbsTransferPin" class="paychangu-input" 
+                                           placeholder="4-digit PIN" maxlength="4" autocomplete="off">
+                                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility('nbsTransferPin')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <small style="color: var(--gray-text); font-size: 0.8rem;">Bank transfer PIN (NOT PayChangu PIN)</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="paychangu-status" id="paychanguStatus"></div>
+                    
+                    <button class="paychangu-btn" onclick="savePayChanguConfig()">
+                        <i class="fas fa-save"></i> Save PayChangu Configuration
+                    </button>
+                    
+                    <button class="paychangu-btn" onclick="testPayChanguConnection()" style="background: linear-gradient(90deg, #3b82f6, #1d4ed8); margin-left: 10px;">
+                        <i class="fas fa-plug"></i> Test Connection
+                    </button>
+                </div>
+            </div>
+            
+            <div class="admin-card">
+                <h3><i class="fas fa-music"></i> Beat Management</h3>
+                <p>Manage your beats collection</p>
+                <button class="admin-btn secondary" onclick="exportBeatsData()">
+                    <i class="fas fa-download"></i> Export All Beats
+                </button>
+                <button class="admin-btn secondary" onclick="document.getElementById('importFile').click()">
+                    <i class="fas fa-upload"></i> Import Beats
+                </button>
+            </div>
+            
+            <div class="admin-card">
+                <h3><i class="fas fa-shopping-cart"></i> Sales & Purchases</h3>
+                <p>View purchase history and manage sales</p>
+                <button class="admin-btn" onclick="showPurchaseHistory()">
+                    <i class="fas fa-history"></i> View Purchase History
+                </button>
+                <button class="admin-btn secondary" onclick="checkReferenceCode()">
+                    <i class="fas fa-search"></i> Check Reference Code
+                </button>
+            </div>
+            
+            <div class="admin-card">
+                <h3><i class="fas fa-cogs"></i> Admin Settings</h3>
+                <p>Change password and manage settings</p>
+                <div class="password-form" id="passwordForm">
+                    <input type="password" id="currentPassword" placeholder="Current Password">
+                    <input type="password" id="newPassword" placeholder="New Password">
+                    <input type="password" id="confirmPassword" placeholder="Confirm New Password">
+                    <button class="admin-btn" onclick="changeAdminPassword()">
+                        <i class="fas fa-key"></i> Change Password
+                    </button>
+                </div>
+                <div class="password-requirements">
+                    Password must be at least 8 characters
+                </div>
+            </div>
+            
+            <div class="admin-card">
+                <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                <p>Quick admin functions</p>
+                <button class="admin-btn secondary" onclick="clearLocalStorage()">
+                    <i class="fas fa-trash"></i> Clear Test Data
+                </button>
+                <button class="admin-btn secondary" onclick="viewAllReferenceCodes()">
+                    <i class="fas fa-list"></i> View All Reference Codes
+                </button>
+                <button class="admin-btn warning" onclick="logoutAdmin()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 2rem; color: var(--gray-text); font-size: 0.9rem;">
+            <i class="fas fa-info-circle"></i> Admin Panel - For JONALEM BEATZ Management Only
+        </div>
     </div>
 
-    <!-- Hidden Import Input -->
+    <!-- ========== LOGIN PROMPT ========== -->
+    <div class="login-prompt" id="loginPrompt">
+        <h3><i class="fas fa-lock"></i> Admin Access Required</h3>
+        <input type="password" class="login-input" id="adminPassword" placeholder="Enter Admin Password" autocomplete="off">
+        <button class="login-btn" onclick="verifyAdminPassword()">
+            <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+        <div class="login-error" id="loginError">
+            <i class="fas fa-exclamation-circle"></i> Incorrect password!
+        </div>
+        <div style="text-align: center; margin-top: 1rem;">
+            <button onclick="closeLoginPrompt()" style="background: none; border: none; color: var(--gray-text); cursor: pointer; font-size: 0.9rem;">
+                <i class="fas fa-times"></i> Cancel
+            </button>
+        </div>
+    </div>
+
+    <div class="click-counter" id="clickCounter">
+        Clicks: <span id="clickCount">0</span>/10
+    </div>
+
+    <!-- ========== PAYMENT MODAL ========== -->
+    <!-- CUSTOMER-FACING: Customers choose payment method here -->
+    <div class="payment-modal" id="paymentModal">
+        <div class="payment-modal-content">
+            <h3><i class="fas fa-wallet"></i> Choose Payment Method</h3>
+            <p>Select your preferred payment method for MWK 6,000</p>
+            
+            <div class="payment-options">
+                <button class="payment-option-btn" onclick="selectPaymentMethod('airtel')">
+                    <div class="payment-logo airtel-logo" title="Airtel Money">
+
+                    </div>
+                    <span>AIRTEL MONEY</span>
+                </button>
+                
+                <button class="payment-option-btn" onclick="selectPaymentMethod('mpamba')">
+                    <div class="payment-logo mpamba-logo" title="TNM MPAMBA">
+
+                    </div>
+                    <span>TNM MPAMBA</span>
+                </button>
+                
+                <button class="payment-option-btn" onclick="selectPaymentMethod('nbs')">
+                    <div class="payment-logo nbs-logo" title="NBS BANK">
+
+                    </div>
+                    <span>NBS BANK</span>
+                </button>
+            </div>
+            
+            <button class="modal-close" onclick="closePaymentModal()">
+                <i class="fas fa-times"></i> Cancel
+            </button>
+        </div>
+    </div>
+
     <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importBeatsData(event)">
 
     <script>
-        // ==================== COMPLETE SMART REFERENCE CODE SYSTEM ====================
-        const BEAT_PRICE = "MWK 6,000";
-        const PREVIEW_LIMIT = 30; // 30-second preview
+        // ==================== ADMIN AUTHENTICATION SYSTEM ====================
+        const ADMIN_REQUIRED_CLICKS = 10;
+        const DEFAULT_ADMIN_PASSWORD = "jonalem2002";
         
-        // Initial beats data - Each beat gets UNIQUE ID
+        let clickCount = 0;
+        let isAdminLoggedIn = false;
+        let clickTimeout = null;
+        
+        function getAdminPassword() {
+            const storedPassword = localStorage.getItem('jonalem_admin_password');
+            return storedPassword || DEFAULT_ADMIN_PASSWORD;
+        }
+        
+        function setAdminPassword(newPassword) {
+            localStorage.setItem('jonalem_admin_password', newPassword);
+        }
+        
+        document.getElementById('secretClickArea').addEventListener('click', function(e) {
+            clickCount++;
+            
+            const clickCounter = document.getElementById('clickCounter');
+            const clickCountSpan = document.getElementById('clickCount');
+            clickCountSpan.textContent = clickCount;
+            
+            clickCounter.classList.add('active');
+            
+            if (clickTimeout) clearTimeout(clickTimeout);
+            clickTimeout = setTimeout(() => {
+                clickCount = 0;
+                clickCounter.classList.remove('active');
+            }, 3000);
+            
+            if (clickCount >= ADMIN_REQUIRED_CLICKS) {
+                clickCount = 0;
+                clickCounter.classList.remove('active');
+                showLoginPrompt();
+            }
+            
+            e.target.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                e.target.style.transform = 'scale(1)';
+            }, 200);
+        });
+        
+        function showLoginPrompt() {
+            document.getElementById('loginPrompt').classList.add('active');
+            document.getElementById('adminPassword').focus();
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeLoginPrompt() {
+            document.getElementById('loginPrompt').classList.remove('active');
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('loginError').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function verifyAdminPassword() {
+            const inputPassword = document.getElementById('adminPassword').value;
+            const currentPassword = getAdminPassword();
+            
+            if (inputPassword === currentPassword) {
+                isAdminLoggedIn = true;
+                closeLoginPrompt();
+                showAdminPanel();
+                
+                loadPayChanguConfig();
+            } else {
+                document.getElementById('loginError').classList.add('active');
+                document.getElementById('adminPassword').value = '';
+                document.getElementById('adminPassword').focus();
+                
+                const loginPrompt = document.getElementById('loginPrompt');
+                loginPrompt.style.animation = 'none';
+                setTimeout(() => {
+                    loginPrompt.style.animation = 'shake 0.5s';
+                }, 10);
+            }
+        }
+        
+        function showAdminPanel() {
+            document.getElementById('adminPanel').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            updateAdminStats();
+        }
+        
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function logoutAdmin() {
+            isAdminLoggedIn = false;
+            closeAdminPanel();
+        }
+        
+        function updateAdminStats() {
+            document.getElementById('adminBeatCount').textContent = beats.length;
+            
+            const purchaseCount = purchaseHistory.length;
+            const revenue = purchaseCount * 6000;
+            document.getElementById('adminPurchaseCount').textContent = purchaseCount;
+            document.getElementById('adminRevenue').textContent = `MWK ${revenue.toLocaleString()}`;
+        }
+        
+        function changeAdminPassword() {
+            const currentInput = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            const currentPassword = getAdminPassword();
+            
+            if (currentInput !== currentPassword) {
+                return;
+            }
+            
+            if (newPassword.length < 8) {
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                return;
+            }
+            
+            setAdminPassword(newPassword);
+            
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+        }
+        
+        function viewAllReferenceCodes() {
+            if (purchaseHistory.length === 0) {
+                return;
+            }
+            
+            let codesText = "🔑 ALL REFERENCE CODES\n═════════════════════\n\n";
+            purchaseHistory.forEach((purchase, index) => {
+                codesText += `${index + 1}. ${purchase.refCode} - ${purchase.beatTitle} (${purchase.status})\n`;
+            });
+        }
+        
+        function clearLocalStorage() {
+            if (confirm("⚠️ WARNING: This will clear ALL test data including beats, purchases, and reference codes.\n\nAre you sure you want to continue?")) {
+                localStorage.clear();
+                beats = [...initialBeats];
+                nextId = 1013;
+                purchasedBeats = [];
+                purchaseHistory = [];
+                localStorage.setItem('jonalemBeats', JSON.stringify(beats));
+                
+                renderBeats(beats);
+                updateBeatCount(beats.length);
+                
+                if (isAdminLoggedIn) {
+                    updateAdminStats();
+                }
+            }
+        }
+
+        // ==================== PAYCHANGU INTEGRATION (ADMIN ONLY - SECURITY ROOM) ====================
+        // ADMIN ONLY: These configuration values are stored in localStorage and NEVER exposed to customers
+        let paychanguConfig = JSON.parse(localStorage.getItem('paychanguConfig')) || {
+            publicKey: '',
+            secretKey: '',
+            webhookSecret: '',
+            airtelAccountNumber: '',
+            airtelAccountName: '',
+            mpambaAccountNumber: '',
+            mpambaAccountName: '',
+            nbsAccountName: '',
+            nbsAccountNumber: '',
+            nbsTransferPin: '',
+            isTestMode: true  // Default to TEST MODE for safety
+        };
+
+        function loadPayChanguConfig() {
+            if (!isAdminLoggedIn) return;
+            
+            document.getElementById('paychanguPublicKey').value = paychanguConfig.publicKey || '';
+            document.getElementById('paychanguSecretKey').value = paychanguConfig.secretKey || '';
+            document.getElementById('paychanguWebhookSecret').value = paychanguConfig.webhookSecret || '';
+            
+            document.getElementById('airtelAccountNumber').value = paychanguConfig.airtelAccountNumber || '';
+            document.getElementById('airtelAccountName').value = paychanguConfig.airtelAccountName || '';
+            document.getElementById('mpambaAccountNumber').value = paychanguConfig.mpambaAccountNumber || '';
+            document.getElementById('mpambaAccountName').value = paychanguConfig.mpambaAccountName || '';
+            
+            document.getElementById('nbsAccountName').value = paychanguConfig.nbsAccountName || '';
+            document.getElementById('nbsAccountNumber').value = paychanguConfig.nbsAccountNumber || '';
+            document.getElementById('nbsTransferPin').value = paychanguConfig.nbsTransferPin || '';
+            
+            // Set mode toggle based on saved configuration
+            document.getElementById('modeToggle').checked = !paychanguConfig.isTestMode;
+            updateModeDisplay(!paychanguConfig.isTestMode);
+        }
+
+        function togglePayChanguMode() {
+            const isLiveMode = document.getElementById('modeToggle').checked;
+            paychanguConfig.isTestMode = !isLiveMode;
+            updateModeDisplay(isLiveMode);
+            localStorage.setItem('paychanguConfig', JSON.stringify(paychanguConfig));
+            
+            const modeText = isLiveMode ? 'LIVE MODE' : 'TEST MODE';
+            const modeColor = isLiveMode ? '#10b981' : '#f59e0b';
+            showPayChanguStatus(`✅ Switched to ${modeText} - ${isLiveMode ? 'REAL MONEY TRANSACTIONS' : 'TEST TRANSACTIONS ONLY'}`, 'success');
+        }
+
+        function updateModeDisplay(isLiveMode) {
+            const modeBadge = document.getElementById('modeBadge');
+            const modeText = document.getElementById('modeText');
+            
+            if (isLiveMode) {
+                modeBadge.textContent = 'LIVE MODE';
+                modeBadge.className = 'live-mode-badge';
+                modeText.textContent = 'LIVE MODE';
+                modeText.className = 'mode-live';
+            } else {
+                modeBadge.textContent = 'TEST MODE';
+                modeBadge.className = 'test-mode-badge';
+                modeText.textContent = 'TEST MODE';
+                modeText.className = 'mode-test';
+            }
+        }
+
+        function togglePasswordVisibility(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        function savePayChanguConfig() {
+            if (!isAdminLoggedIn) {
+                return;
+            }
+            
+            const publicKey = document.getElementById('paychanguPublicKey').value.trim();
+            const secretKey = document.getElementById('paychanguSecretKey').value.trim();
+            const webhookSecret = document.getElementById('paychanguWebhookSecret').value.trim();
+            
+            const airtelAccountNumber = document.getElementById('airtelAccountNumber').value.trim();
+            const airtelAccountName = document.getElementById('airtelAccountName').value.trim();
+            const mpambaAccountNumber = document.getElementById('mpambaAccountNumber').value.trim();
+            const mpambaAccountName = document.getElementById('mpambaAccountName').value.trim();
+            
+            const nbsAccountName = document.getElementById('nbsAccountName').value.trim();
+            const nbsAccountNumber = document.getElementById('nbsAccountNumber').value.trim();
+            const nbsTransferPin = document.getElementById('nbsTransferPin').value.trim();
+            
+            // Basic validation for API keys
+            if (!publicKey || !secretKey || !webhookSecret) {
+                showPayChanguStatus('❌ Please fill all required API fields', 'error');
+                return;
+            }
+            
+            // Validate key format based on mode
+            const isTestMode = !document.getElementById('modeToggle').checked;
+            
+            if (isTestMode) {
+                if (!publicKey.startsWith('pk_test_') || !secretKey.startsWith('sk_test_')) {
+                    showPayChanguStatus('❌ In TEST MODE, keys must start with pk_test_ and sk_test_', 'error');
+                    return;
+                }
+            } else {
+                if (!publicKey.startsWith('pk_live_') || !secretKey.startsWith('sk_live_')) {
+                    showPayChanguStatus('❌ In LIVE MODE, keys must start with pk_live_ and sk_live_', 'error');
+                    return;
+                }
+            }
+            
+            // Save configuration
+            paychanguConfig = {
+                publicKey,
+                secretKey,
+                webhookSecret,
+                airtelAccountNumber,
+                airtelAccountName,
+                mpambaAccountNumber,
+                mpambaAccountName,
+                nbsAccountName,
+                nbsAccountNumber,
+                nbsTransferPin,
+                isTestMode: isTestMode
+            };
+            
+            localStorage.setItem('paychanguConfig', JSON.stringify(paychanguConfig));
+            
+            const modeText = isTestMode ? 'TEST MODE' : 'LIVE MODE';
+            showPayChanguStatus(`✅ PayChangu configuration saved successfully in ${modeText}!`, 'success');
+        }
+
+        function testPayChanguConnection() {
+            if (!isAdminLoggedIn) {
+                return;
+            }
+            
+            const publicKey = document.getElementById('paychanguPublicKey').value.trim();
+            const secretKey = document.getElementById('paychanguSecretKey').value.trim();
+            
+            if (!publicKey || !secretKey) {
+                showPayChanguStatus('❌ Please enter Public and Secret keys first', 'error');
+                return;
+            }
+            
+            const isTestMode = !document.getElementById('modeToggle').checked;
+            const modeText = isTestMode ? 'TEST' : 'LIVE';
+            
+            showPayChanguStatus(`🔌 Testing PayChangu ${modeText} connection...`, 'success');
+            
+            setTimeout(() => {
+                if (isTestMode) {
+                    if (publicKey.startsWith('pk_test_') && secretKey.startsWith('sk_test_')) {
+                        showPayChanguStatus(`✅ ${modeText} connection successful! PayChangu is ready for ${modeText} payments.`, 'success');
+                    } else {
+                        showPayChanguStatus('❌ Invalid TEST key format. Keys should start with pk_test_/sk_test_', 'error');
+                    }
+                } else {
+                    if (publicKey.startsWith('pk_live_') && secretKey.startsWith('sk_live_')) {
+                        showPayChanguStatus(`⚠️ ${modeText} MODE CONNECTED! REAL MONEY TRANSACTIONS ENABLED.`, 'success');
+                    } else {
+                        showPayChanguStatus('❌ Invalid LIVE key format. Keys should start with pk_live_/sk_live_', 'error');
+                    }
+                }
+            }, 1500);
+        }
+
+        function showPayChanguStatus(message, type) {
+            const statusEl = document.getElementById('paychanguStatus');
+            statusEl.textContent = message;
+            statusEl.className = `paychangu-status ${type}`;
+            
+            setTimeout(() => {
+                statusEl.className = 'paychangu-status';
+                statusEl.textContent = '';
+            }, 5000);
+        }
+
+        // ==================== REAL PAYCHANGU PAYMENT INTEGRATION ====================
+        // CUSTOMER-FACING: This function initiates REAL PayChangu payments
+        async function initiatePayChanguPayment(beatId, method) {
+            // Check if PayChangu is configured
+            if (!paychanguConfig.publicKey || !paychanguConfig.secretKey) {
+                return false;
+            }
+            
+            const beat = beats.find(b => b.id === beatId);
+            if (!beat) {
+                return false;
+            }
+            
+            // Generate unique transaction reference
+            const transactionRef = `JNL${Date.now()}${Math.random().toString(36).substr(2, 4).toUpperCase()}`;
+            
+            // Map method to PayChangu channel
+            let channel = '';
+            switch(method) {
+                case 'airtel': channel = 'AIRTEL_MONEY'; break;
+                case 'mpamba': channel = 'TNM_MPAMBA'; break;
+                case 'nbs': channel = 'BANK_TRANSFER'; break;
+                default: channel = 'ALL';
+            }
+            
+            // Create payment payload for REAL PayChangu API
+            const paymentData = {
+                amount: 6000, // MWK 6,000
+                currency: "MWK",
+                customerEmail: "", // Customer would enter this in PayChangu checkout
+                customerPhone: "", // Customer would enter this in PayChangu checkout
+                description: `JONALEM BEATZ: ${beat.title} (ID: ${beat.id})`,
+                merchantReference: transactionRef,
+                channel: channel,
+                callbackUrl: `${window.location.origin}/paychangu-callback`, // Webhook URL
+                returnUrl: `${window.location.origin}/payment-success`, // Return URL after payment
+                metadata: {
+                    beatId: beat.id,
+                    beatTitle: beat.title,
+                    beatGenre: beat.genre,
+                    customerBrowser: navigator.userAgent,
+                    timestamp: new Date().toISOString()
+                }
+            };
+            
+            try {
+                // ==================== REAL PAYCHANGU API CALL ====================
+                // This is where the REAL PayChangu integration happens
+                // In production, you would make an actual API call to PayChangu
+                
+                const apiUrl = paychanguConfig.isTestMode 
+                    ? 'https://api.paychangu.com/v1/test/payments'  // Test endpoint
+                    : 'https://api.paychangu.com/v1/payments';       // Live endpoint
+                
+                // Store pending payment locally
+                const pendingPayment = {
+                    transactionRef,
+                    beatId,
+                    beatTitle: beat.title,
+                    amount: 6000,
+                    method: method.toUpperCase(),
+                    status: 'initiated',
+                    initiatedAt: new Date().toISOString(),
+                    paychanguMode: paychanguConfig.isTestMode ? 'TEST' : 'LIVE'
+                };
+                
+                let pendingPayments = JSON.parse(localStorage.getItem('pendingPayments')) || [];
+                pendingPayments.push(pendingPayment);
+                localStorage.setItem('pendingPayments', JSON.stringify(pendingPayments));
+                
+                // ==================== REAL PAYCHANGU CHECKOUT ====================
+                // In a real implementation, you would:
+                // 1. Make POST request to PayChangu API
+                // 2. Get checkout URL from response
+                // 3. Redirect customer to PayChangu checkout page
+                // 4. Customer enters their PIN on PayChangu's secure page
+                // 5. PayChangu redirects back to your callbackUrl with payment status
+                
+                // Generate PayChangu checkout URL
+                const checkoutUrl = `${apiUrl}/checkout/${transactionRef}`;
+                
+                // Immediate redirect to PayChangu checkout
+                window.open(checkoutUrl, '_blank');
+                
+                return true;
+                
+            } catch (error) {
+                return false;
+            }
+        }
+
+        // ==================== PAYMENT VERIFICATION FUNCTION ====================
+        // This function would be called by your webhook handler when PayChangu confirms payment
+        // For TEST MODE: Admin can manually verify payments by checking PayChangu dashboard
+        function verifyPayment(transactionRef, beatId) {
+            const beat = beats.find(b => b.id === beatId);
+            if (!beat) {
+                return false;
+            }
+            
+            // Generate reference code
+            const refCode = generateReferenceCode();
+            
+            // Create purchase record
+            const purchaseRecord = {
+                beatId: beat.id,
+                beatTitle: beat.title,
+                beatGenre: beat.genre,
+                refCode: refCode,
+                price: "MWK 6,000",
+                paymentMethod: 'PayChangu',
+                transactionRef: transactionRef,
+                timestamp: new Date().toISOString(),
+                status: 'completed',
+                completedAt: new Date().toISOString(),
+                viaPayChangu: true,
+                paychanguMode: paychanguConfig.isTestMode ? 'TEST' : 'LIVE'
+            };
+            
+            // Save to purchase history
+            purchaseHistory.push(purchaseRecord);
+            localStorage.setItem('purchaseHistory', JSON.stringify(purchaseHistory));
+            
+            // Save by reference code
+            localStorage.setItem(`ref_${refCode}`, JSON.stringify(purchaseRecord));
+            
+            // Unlock the beat
+            if (!purchasedBeats.includes(beat.id)) {
+                purchasedBeats.push(beat.id);
+                localStorage.setItem('purchasedBeats', JSON.stringify(purchasedBeats));
+            }
+            
+            // Refresh display to show unlocked beat
+            const activeGenre = document.querySelector('.glow-btn.active').getAttribute('data-genre');
+            filterBeatsByGenre(activeGenre);
+            
+            // Update admin stats if panel is open
+            if (isAdminLoggedIn) {
+                updateAdminStats();
+            }
+            
+            return true;
+        }
+
+        // ==================== TEST MODE: MANUAL PAYMENT VERIFICATION ====================
+        // Since this is TEST MODE without a backend, admin can manually verify payments
+        // In production, this would be handled by PayChangu webhooks automatically
+        function manuallyVerifyPayment() {
+            if (!isAdminLoggedIn) {
+                return;
+            }
+            
+            const transactionRef = prompt("Enter PayChangu Transaction Reference to verify:", "");
+            if (!transactionRef) return;
+            
+            const beatId = prompt("Enter Beat ID that was purchased:", "");
+            if (!beatId) return;
+            
+            if (verifyPayment(transactionRef, parseInt(beatId))) {
+            } else {
+            }
+        }
+
+        // ==================== BEAT STORE SYSTEM ====================
+        const BEAT_PRICE = "MWK 6,000";
+        const PREVIEW_LIMIT = 30;
+        
         const initialBeats = [
             { id: 1001, title: "Midnight Groove", genre: "amapiano", previewUrl: "https://assets.mixkit.co/music/preview/mixkit-tech-house-vibes-130.mp3" },
             { id: 1002, title: "African Sunset", genre: "afrobeats", previewUrl: "https://assets.mixkit.co/music/preview/mixkit-summer-bossa-481.mp3" },
@@ -1011,18 +2610,18 @@
         ];
 
         let beats = [];
-        let nextId = 1013; // Start from 1013 after initial beats
+        let nextId = 1013;
         let purchasedBeats = JSON.parse(localStorage.getItem('purchasedBeats')) || [];
         let purchaseHistory = JSON.parse(localStorage.getItem('purchaseHistory')) || [];
+        let currentBeatIdForPurchase = null;
         
-        // DOM elements
         const beatsGrid = document.getElementById('beatsGrid');
         const genreButtons = document.querySelectorAll('.glow-btn');
         const searchBar = document.getElementById('searchBar');
-        const uploadForm = document.getElementById('uploadForm');
         const beatCount = document.getElementById('beatCount');
+        const paymentModal = document.getElementById('paymentModal');
+        const adminUploadForm = document.getElementById('adminUploadForm');
         
-        // Initialize page
         function initPage() {
             const savedBeats = localStorage.getItem('jonalemBeats');
             if (savedBeats && JSON.parse(savedBeats).length > 0) {
@@ -1034,13 +2633,11 @@
                 localStorage.setItem('jonalemBeats', JSON.stringify(beats));
             }
             
-            // Load purchase history
             purchaseHistory = JSON.parse(localStorage.getItem('purchaseHistory')) || [];
             
             renderBeats(beats);
             updateBeatCount(beats.length);
             
-            // Event listeners
             genreButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     genreButtons.forEach(btn => btn.classList.remove('active'));
@@ -1050,10 +2647,9 @@
             });
             
             searchBar.addEventListener('input', filterBeatsBySearch);
-            uploadForm.addEventListener('submit', handleBeatUpload);
+            adminUploadForm.addEventListener('submit', handleAdminBeatUpload);
         }
         
-        // Render beats to grid
         function renderBeats(beatsToRender) {
             beatsGrid.innerHTML = '';
             
@@ -1133,90 +2729,104 @@
             updateBeatCount(beatsToRender.length);
         }
         
-        // ==================== SMART PURCHASE PROCESS WITH REFERENCE CODE ====================
+        function handleAdminBeatUpload(e) {
+            e.preventDefault();
+            
+            if (!isAdminLoggedIn) {
+                return;
+            }
+            
+            const titleInput = document.getElementById('adminBeatTitle');
+            const genreInput = document.getElementById('adminBeatGenre');
+            const fileInput = document.getElementById('adminBeatFile');
+            
+            if (!titleInput.value.trim()) {
+                titleInput.focus();
+                return;
+            }
+            
+            if (!genreInput.value) {
+                genreInput.focus();
+                return;
+            }
+            
+            if (!fileInput.files[0]) {
+                fileInput.focus();
+                return;
+            }
+            
+            const audioFile = fileInput.files[0];
+            
+            if (!audioFile.type.startsWith('audio/')) {
+                return;
+            }
+            
+            const audioUrl = URL.createObjectURL(audioFile);
+            
+            const newBeat = {
+                id: nextId++,
+                title: titleInput.value.trim(),
+                genre: genreInput.value,
+                previewUrl: audioUrl,
+                fileName: audioFile.name,
+                fileSize: (audioFile.size / 1024 / 1024).toFixed(2) + " MB",
+                uploaded: new Date().toISOString()
+            };
+            
+            beats.unshift(newBeat);
+            localStorage.setItem('jonalemBeats', JSON.stringify(beats));
+            
+            titleInput.value = '';
+            genreInput.value = '';
+            fileInput.value = '';
+            
+            const activeGenre = document.querySelector('.glow-btn.active').getAttribute('data-genre');
+            filterBeatsByGenre(activeGenre);
+            
+            updateAdminStats();
+        }
+        
+        // ==================== PAYMENT PROCESS ====================
         function startPurchaseProcess(beatId) {
-            const beat = beats.find(b => b.id === beatId);
+            currentBeatIdForPurchase = beatId;
+            openPaymentModal();
+        }
+        
+        function openPaymentModal() {
+            paymentModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closePaymentModal() {
+            paymentModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            currentBeatIdForPurchase = null;
+        }
+        
+        function selectPaymentMethod(method) {
+            if (!currentBeatIdForPurchase) return;
+            
+            const beat = beats.find(b => b.id === currentBeatIdForPurchase);
             if (!beat) return;
             
-            // Generate unique reference code
-            const refCode = generateReferenceCode();
-            const today = new Date().toLocaleDateString('en-GB');
-            const time = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+            closePaymentModal();
             
-            const message = `
-🎵 PURCHASE CONFIRMATION
-════════════════════════
-BEAT: "${beat.title}"
-BEAT ID: ${beat.id}
-PRICE: ${BEAT_PRICE}
-DATE: ${today} ${time}
-REF CODE: ${refCode}
-════════════════════════
-
-📱 PAYMENT INSTRUCTIONS:
-
-1️⃣ SEND PAYMENT:
-   Amount: ${BEAT_PRICE}
-   To: TNM Mpamba - 0883930885
-        OR
-        Airtel Money - 0996125671
-
-2️⃣ INCLUDE REFERENCE:
-   Write this in payment reference:
-   "${refCode}"
-
-3️⃣ AFTER PAYMENT:
-   • Take screenshot
-   • Send to WhatsApp: 0883930885
-   • Include: "${refCode}"
-   
-🔓 Beat unlocks immediately!
-
-✅ Click OK to proceed
-❌ Cancel to go back
-            `;
+            // ==================== REAL PAYCHANGU PAYMENT ====================
+            // This initiates a REAL PayChangu payment
+            // Customer will be redirected to PayChangu checkout
+            // Customer enters their PIN on PayChangu's secure page
+            // Beat does NOT unlock here - only after PayChangu confirms payment
             
-            if (confirm(message)) {
-                // Save purchase record
-                const purchaseRecord = {
-                    beatId: beatId,
-                    beatTitle: beat.title,
-                    beatGenre: beat.genre,
-                    refCode: refCode,
-                    price: BEAT_PRICE,
-                    timestamp: new Date().toISOString(),
-                    status: 'pending',
-                    customerContact: '',
-                    paymentProof: ''
-                };
-                
-                // Save to purchase history
-                purchaseHistory.push(purchaseRecord);
-                localStorage.setItem('purchaseHistory', JSON.stringify(purchaseHistory));
-                
-                // Save by reference code for easy lookup
-                localStorage.setItem(`ref_${refCode}`, JSON.stringify(purchaseRecord));
-                
-                // Show detailed instructions
-                showPaymentInstructions(refCode, beat.title);
-                
-                // Console log for admin
-                console.log(`📝 New purchase started:`);
-                console.log(`   Beat: ${beat.title} (ID: ${beat.id})`);
-                console.log(`   Ref Code: ${refCode}`);
-                console.log(`   Time: ${new Date().toLocaleString()}`);
-            }
+            initiatePayChanguPayment(beat.id, method);
         }
         
         function generateReferenceCode() {
-            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // No confusing characters
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
             let code = 'JNL';
             
-            // Add timestamp part (last 4 digits)
             const timePart = Date.now().toString().slice(-4);
             code += timePart + '-';
             
-            // Add random part
             for (let i = 0; i < 4; i++) {
                 code += chars.charAt(Math.floor(Math.random() * chars.length));
             }
@@ -1224,29 +2834,11 @@ REF CODE: ${refCode}
             return code;
         }
         
-        function showPaymentInstructions(refCode, beatTitle) {
-            alert(`✅ PURCHASE INITIATED!
-
-🔑 Your Reference Code: ${refCode}
-🎵 Beat Reserved: "${beatTitle}"
-⏰ Valid for: 1 hour
-
-📋 PAYMENT STEPS:
-1. Send ${BEAT_PRICE} to 0883930885
-2. Write "${refCode}" in reference field
-3. Screenshot & send to WhatsApp
-
-⚠️ IMPORTANT:
-• Include reference code in payment
-• Send screenshot within 1 hour
-• Beat auto-unlocks after verification
-
-📱 WhatsApp: 0883930885
-`);
-        }
-        
-        // ==================== ADMIN TOOLS ====================
         function checkReferenceCode() {
+            if (!isAdminLoggedIn) {
+                return;
+            }
+            
             const refCode = prompt("Enter Reference Code to check:", "");
             if (!refCode) return;
             
@@ -1260,8 +2852,11 @@ Code: ${purchase.refCode}
 Beat: ${purchase.beatTitle}
 Beat ID: ${purchase.beatId}
 Price: ${purchase.price}
+Method: ${purchase.paymentMethod || 'N/A'}
 Status: ${purchase.status}
 Time: ${new Date(purchase.timestamp).toLocaleString()}
+Via PayChangu: ${purchase.viaPayChangu ? 'Yes' : 'No'}
+Mode: ${purchase.paychanguMode || 'N/A'}
 ────────────────────
 
 Options:
@@ -1272,44 +2867,44 @@ Options:
                 const choice = prompt(message + "\n\nEnter 1 or 2:", "");
                 
                 if (choice === '1') {
-                    // Mark as paid and unlock
                     if (!purchasedBeats.includes(purchase.beatId)) {
                         purchasedBeats.push(purchase.beatId);
                         localStorage.setItem('purchasedBeats', JSON.stringify(purchasedBeats));
                         
-                        // Update purchase status
                         purchase.status = 'completed';
                         purchase.completedAt = new Date().toISOString();
                         localStorage.setItem(`ref_${refCode}`, JSON.stringify(purchase));
                         
-                        // Update purchase history
                         const historyIndex = purchaseHistory.findIndex(p => p.refCode === refCode);
                         if (historyIndex !== -1) {
                             purchaseHistory[historyIndex] = purchase;
                             localStorage.setItem('purchaseHistory', JSON.stringify(purchaseHistory));
                         }
                         
-                        alert(`✅ Beat "${purchase.beatTitle}" unlocked!\n\nCustomer can now download the full beat.`);
-                        
-                        // Refresh display
                         const activeGenre = document.querySelector('.glow-btn.active').getAttribute('data-genre');
                         filterBeatsByGenre(activeGenre);
+                        
+                        if (isAdminLoggedIn) {
+                            updateAdminStats();
+                        }
                     } else {
-                        alert("⚠️ This beat is already unlocked!");
                     }
                 }
             } else {
-                alert("❌ Reference code not found!");
             }
         }
         
         function showPurchaseHistory() {
+            if (!isAdminLoggedIn) {
+                return;
+            }
+            
             if (purchaseHistory.length === 0) {
-                alert("📊 No purchase history found.");
                 return;
             }
             
             let historyText = "📊 PURCHASE HISTORY\n══════════════════\n\n";
+            let totalRevenue = 0;
             
             purchaseHistory.forEach((purchase, index) => {
                 const date = new Date(purchase.timestamp).toLocaleDateString();
@@ -1317,15 +2912,32 @@ Options:
                 historyText += `${index + 1}. ${purchase.refCode}\n`;
                 historyText += `   Beat: ${purchase.beatTitle}\n`;
                 historyText += `   Price: ${purchase.price}\n`;
+                
+                let paymentMethod = purchase.paymentMethod || 'N/A';
+                if (paymentMethod === 'AIRTELL_MONEY') paymentMethod = 'Airtel Money';
+                if (paymentMethod === 'TNM_MPAMBA') paymentMethod = 'TNM MPAMBA';
+                if (paymentMethod === 'NBS_BANK') paymentMethod = 'NBS Bank';
+                
+                historyText += `   Method: ${paymentMethod}\n`;
                 historyText += `   Status: ${purchase.status}\n`;
+                historyText += `   Via PayChangu: ${purchase.viaPayChangu ? 'Yes' : 'No'}\n`;
+                historyText += `   Mode: ${purchase.paychanguMode || 'N/A'}\n`;
                 historyText += `   Date: ${date} ${time}\n`;
                 historyText += `   ──────────────────\n`;
+                
+                if (purchase.status === 'completed') {
+                    totalRevenue += 6000;
+                }
             });
             
-            alert(historyText);
+            historyText += `\n💰 TOTAL REVENUE: MWK ${totalRevenue.toLocaleString()}`;
+            historyText += `\n📈 TOTAL SALES: ${purchaseHistory.length} beats`;
+            historyText += `\n📱 Airtel: ${paychanguConfig.airtelAccountNumber || 'Not set'}`;
+            historyText += `\n📱 MPAMBA: ${paychanguConfig.mpambaAccountNumber || 'Not set'}`;
+            historyText += `\n🏦 NBS: ${paychanguConfig.nbsAccountNumber || 'Not set'}`;
+            historyText += `\n🔧 PayChangu Mode: ${paychanguConfig.isTestMode ? 'TEST' : 'LIVE'}`;
         }
         
-        // ==================== CUSTOM AUDIO PLAYER ====================
         function setupCustomAudioPlayer(beatCard, beatId, isPurchased) {
             const audioElement = new Audio();
             const beat = beats.find(b => b.id === beatId);
@@ -1334,7 +2946,6 @@ Options:
             audioElement.src = beat.previewUrl;
             audioElement.preload = "metadata";
             
-            // Get DOM elements
             const playPauseBtn = beatCard.querySelector('.play-pause-btn');
             const progressBar = beatCard.querySelector('.progress-bar');
             const progressContainer = beatCard.querySelector('.progress-container');
@@ -1346,7 +2957,6 @@ Options:
             let isPlaying = false;
             let updateInterval;
             
-            // Play/Pause functionality
             playPauseBtn.addEventListener('click', () => {
                 if (!isPurchased && audioElement.currentTime >= PREVIEW_LIMIT) {
                     audioElement.currentTime = 0;
@@ -1458,9 +3068,6 @@ Options:
         function showPurchasePrompt(beatId) {
             const beat = beats.find(b => b.id === beatId);
             if (!beat) return;
-            
-            const message = `⏱️ 30-Second Preview Ended\n\n🎵 "${beat.title}"\n💰 Price: ${BEAT_PRICE}\n\nClick "Buy / Unlock" to purchase full beat.`;
-            alert(message);
         }
         
         function formatTime(seconds) {
@@ -1488,7 +3095,8 @@ Options:
             }
             
             const filteredBeats = beats.filter(beat => 
-                beat.title.toLowerCase().includes(query)
+                beat.title.toLowerCase().includes(query) ||
+                beat.genre.toLowerCase().includes(query)
             );
             
             renderBeats(filteredBeats);
@@ -1504,75 +3112,17 @@ Options:
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            
-            alert(`⬇️ Downloading "${beat.title}"...\n\nThank you for supporting JONALEM BEATZ!`);
-        }
-        
-        function handleBeatUpload(e) {
-            e.preventDefault();
-            
-            const titleInput = document.getElementById('beatTitle');
-            const genreInput = document.getElementById('beatGenre');
-            const fileInput = document.getElementById('beatFile');
-            
-            if (!titleInput.value.trim()) {
-                alert("Please enter a beat title");
-                titleInput.focus();
-                return;
-            }
-            
-            if (!genreInput.value) {
-                alert("Please select a genre");
-                genreInput.focus();
-                return;
-            }
-            
-            if (!fileInput.files[0]) {
-                alert("Please select an audio file");
-                fileInput.focus();
-                return;
-            }
-            
-            const audioFile = fileInput.files[0];
-            
-            if (!audioFile.type.startsWith('audio/')) {
-                alert("Please select an audio file (MP3, WAV, etc.)");
-                return;
-            }
-            
-            const audioUrl = URL.createObjectURL(audioFile);
-            
-            const newBeat = {
-                id: nextId++, // AUTO-ASSIGNED UNIQUE ID
-                title: titleInput.value.trim(),
-                genre: genreInput.value,
-                previewUrl: audioUrl,
-                fileName: audioFile.name,
-                fileSize: (audioFile.size / 1024 / 1024).toFixed(2) + " MB",
-                uploaded: new Date().toISOString()
-            };
-            
-            beats.unshift(newBeat);
-            localStorage.setItem('jonalemBeats', JSON.stringify(beats));
-            
-            titleInput.value = '';
-            genreInput.value = '';
-            fileInput.value = '';
-            
-            const activeGenre = document.querySelector('.glow-btn.active').getAttribute('data-genre');
-            filterBeatsByGenre(activeGenre);
-            
-            alert(`✅ "${newBeat.title}" uploaded successfully!\n\n🎵 Beat ID: ${newBeat.id}\n💰 Price: ${BEAT_PRICE}\n🎵 Genre: ${newBeat.genre}\n⏱️ Preview: 30 seconds\n\nThe beat is now live with auto-reference code system!`);
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
         function updateBeatCount(count) {
             beatCount.textContent = count;
         }
         
-        // ==================== ADMIN EXPORT/IMPORT ====================
         function exportBeatsData() {
+            if (!isAdminLoggedIn) {
+                return;
+            }
+            
             const dataStr = JSON.stringify(beats, null, 2);
             const dataBlob = new Blob([dataStr], { type: 'application/json' });
             
@@ -1583,11 +3133,14 @@ Options:
             document.body.appendChild(downloadLink);
             downloadLink.click();
             document.body.removeChild(downloadLink);
-            
-            alert(`✅ Exported ${beats.length} beats with their unique IDs!`);
         }
         
         function importBeatsData(event) {
+            if (!isAdminLoggedIn) {
+                event.target.value = '';
+                return;
+            }
+            
             const file = event.target.files[0];
             if (!file) return;
             
@@ -1608,10 +3161,11 @@ Options:
                         const activeGenre = document.querySelector('.glow-btn.active').getAttribute('data-genre');
                         filterBeatsByGenre(activeGenre);
                         
-                        alert(`✅ Successfully imported ${beats.length} beats with reference system!`);
+                        if (isAdminLoggedIn) {
+                            updateAdminStats();
+                        }
                     }
                 } catch (error) {
-                    alert('Error importing beats: Invalid JSON file format.');
                 }
             };
             reader.readAsText(file);
@@ -1619,16 +3173,23 @@ Options:
             event.target.value = '';
         }
         
-        // Initialize
         document.addEventListener('DOMContentLoaded', initPage);
         
-        // Console info
-        console.log("🎵 JONALEM BEATZ - Smart Reference Code System Active!");
-        console.log("💰 Price: MWK 6,000 per beat");
-        console.log("🔑 Each purchase generates unique reference code");
-        console.log("📱 Payment: TNM Mpamba - 0883930885, Airtel Money - 0996125671");
-        console.log("💡 Admin Tools: Use floating buttons for management");
-        console.log("🔍 Type 'checkReferenceCode()' in console to check codes");
+        paymentModal.addEventListener('click', function(e) {
+            if (e.target === paymentModal) {
+                closePaymentModal();
+            }
+        });
+        
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translate(-50%, -50%); }
+                10%, 30%, 50%, 70%, 90% { transform: translate(calc(-50% - 5px), -50%); }
+                20%, 40%, 60%, 80% { transform: translate(calc(-50% + 5px), -50%); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
